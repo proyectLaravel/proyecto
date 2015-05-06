@@ -29,7 +29,7 @@
             <li><a href="#">Dashboard</a></li>
             <li><a href="#">Settings</a></li>
             <li>
-              <a class="navbar-collapse collapse">
+              <div class="navbar-collapse collapse">
                 <div>
                   @if (Auth::check())
                   <ul class="nav navbar-nav pull-right">
@@ -39,14 +39,14 @@
                       </a>
                       <ul class="dropdown-menu">
 
-                        <li><div onclick="showView('updateUser','ocultar')">Editar usuario</div></li>
-                        <li><div href="{{ action('AuthController@logout') }}">Salir</div></li>
+                        <li><a onclick="showView('updateUser','ocultar')">Editar usuario</a></li>
+                        <li><a href="{{ action('AuthController@logout') }}">Salir</a></li>
                       </ul>
                     </li>
                   </ul>
                   @endif
                 </div>
-              <a>
+              <div>
             </li>
 
           </ul>
@@ -61,7 +61,7 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Dashboard <span class="sr-only">(current)</span></a></li>
+            <li class="active"><a href="#" onclick="showView('main','ocultar')">Dashboard <span class="sr-only">(current)</span></a></li>
             <li><a href="#" onclick="showView('asignarTarea','ocultar')">Asignar</a></li>
             <li><a href="#">Social Networking</a></li>
             <li><a href="#">favorites</a></li>
@@ -153,7 +153,6 @@
               <select id="usuarios" name="asignado">
                 <option>Please choose car make first</option>
               </select>
-              {{ Form::text('asignado', '', ['class' => 'form-control', 'placeholder' => 'Asignado', 'autofocus' => '']) }}
 
               {{ Form::label('Fecha de respuesta', 'fecha respuesta')}}
               {{ Form::custom('date', 'fechaRespuesta') }}
@@ -164,7 +163,7 @@
               
 
             <p>
-              <input type="submit" value="Actualizar" class="btn btn-success">
+              <input type="submit" value="Asignar" class="btn btn-success">
             </p>
             {{ Form::close() }}
         </div>
