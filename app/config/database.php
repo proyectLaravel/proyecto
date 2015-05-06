@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'authLaravelSimple',
+			'database'  => 'bdincan',
 			'username'  => 'root',
-			'password'  => 'root',
+			'password'  => '',
 			'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',

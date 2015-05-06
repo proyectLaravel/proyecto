@@ -22,7 +22,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">AuthLaravelSimple</a>
+          <a class="navbar-brand" href="#">INCAN</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -35,12 +35,12 @@
                   <ul class="nav navbar-nav pull-right">
                     <li class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="icon icon-wh i-profile"></span> {{ Auth::user()->username }}  <span class="caret"></span>
+                        <span class="icon icon-wh i-profile">{{ Auth::user()->username }} </span><span class="caret"></span>
                       </a>
                       <ul class="dropdown-menu">
 
-                        <li><div onclick="showView('updateUser','ocultar')">Editar usuario</li>
-                        <li><a href="{{ action('AuthController@logout') }}">Salir</a></li>
+                        <li><div onclick="showView('updateUser','ocultar')">Editar usuario</div></li>
+                        <li><div href="{{ action('AuthController@logout') }}">Salir</div></li>
                       </ul>
                     </li>
                   </ul>
@@ -62,7 +62,7 @@
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
             <li class="active"><a href="#">Dashboard <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Blog</a></li>
+            <li><a href="#" onclick="showView('asignarTarea','ocultar')">Asignar</a></li>
             <li><a href="#">Social Networking</a></li>
             <li><a href="#">favorites</a></li>
             <li><a href="#">Recommended</a></li>
@@ -71,7 +71,7 @@
         </div>
 
         <div id="main" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar">
-          <h1 class="page-header">Dashboard</h1>
+          <h1 class="page-header">Hola este es el principal</h1>
           <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
               <img class="img-circle" src="{{asset(Auth::user()->avatar->url('thumb')) }}" >
@@ -127,6 +127,41 @@
 
               {{ Form::label('password', 'Password', ['class' => 'sr-only']) }}
               {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
+
+            <p>
+              <input type="submit" value="Actualizar" class="btn btn-success">
+            </p>
+            {{ Form::close() }}
+        </div>
+      </div>
+
+      <div id="asignarTarea" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar" style="display:none" >
+          <div class="col-md-4 col-md-offset-4">
+           
+            {{ Form::open(['route' => 'asignarTarea', 'method' => 'POST', 'role' => 'form']) }}
+
+              {{ Form::hidden('id', Auth::user()->id ) }}
+              {{ Form::hidden('estatus', 'enproceso' ) }}
+
+              {{ Form::label('Folio', 'Folio')}}
+              {{ Form::text('folio','', ['class' => 'form-control', 'placeholder' => 'Folio', 'autofocus' => '']) }}
+
+              {{ Form::label('Asunto', 'Asunto')}}
+              {{ Form::text('asunto', '', ['class' => 'form-control', 'placeholder' => 'Asunto', 'autofocus' => '']) }}
+
+              {{ Form::label('Asignado a', 'asignado a')}}
+              <select id="usuarios" name="asignado">
+                <option>Please choose car make first</option>
+              </select>
+              {{ Form::text('asignado', '', ['class' => 'form-control', 'placeholder' => 'Asignado', 'autofocus' => '']) }}
+
+              {{ Form::label('Fecha de respuesta', 'fecha respuesta')}}
+              {{ Form::custom('date', 'fechaRespuesta') }}
+
+              {{ Form::label('Area Solicitante', 'Area Solicitante')}}
+              {{ Form::text('areaSolicitante', '' , ['class' => 'form-control', 'placeholder' => 'Area Solicitante', 'autofocus' => '']) }}
+
+              
 
             <p>
               <input type="submit" value="Actualizar" class="btn btn-success">

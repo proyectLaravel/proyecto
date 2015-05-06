@@ -30,5 +30,15 @@ Route::group(['before' => 'auth'], function()
 
 	Route::post('uploadImage', ['as' => 'uploadImage', 'uses' => 'UserController@uploadImage' ] );
 
+	Route::post('asignarTarea', ['as' => 'asignarTarea', 'uses' => 'UserController@updateUser' ] );
+
+	Route::get('content_ajax', function(){
+		$users = DB::table('users')->get(['id','first_name']);
+		return Response::json(array(
+			'users' => 	$users
+		));
+	
+});
+
 	//Route::post('uploadImage', 'UserController@uploadImage');
 });
