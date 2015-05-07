@@ -71,29 +71,25 @@
         </div>
 
         <div id="main" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar">
+
           <h1 class="page-header">Hola este es el principal</h1>
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img class="img-circle" src="{{asset(Auth::user()->avatar->url('thumb')) }}" >
-              <h4>Users signed</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img class="img-circle" src="{{asset(Auth::user()->avatar->url('thumb')) }}" >
-              <h4>More Popular Blogs</h4>
-              <span class="text-muted"> else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img class="img-circle" src="{{asset(Auth::user()->avatar->url('thumb')) }}" >
-              <h4>Space Data</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img class="img-circle" src="{{asset(Auth::user()->avatar->url('thumb')) }}" >
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-          </div>
+
+          
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Folio</th>
+                <th>Area Solicitante </th>
+                <th>Asunto</th>
+                <th>Fecha Entrega</th>
+                
+              </tr>
+            </thead>
+            <tbody id="tasks">
+              
+            </tbody>
+          </table>
+          
 
           <h2 class="sub-header">Description</h2>
           <div class="table-responsive">
@@ -150,7 +146,7 @@
               {{ Form::text('asunto', '', ['class' => 'form-control', 'placeholder' => 'Asunto', 'autofocus' => '']) }}
 
               {{ Form::label('Asignado a', 'asignado a')}}
-              <select id="usuarios" name="asignado">
+              <select id="usuarios" name="user_id">
                 <option>Please choose car make first</option>
               </select>
 

@@ -1,7 +1,8 @@
 var base_url = 'http://localhost/authLaravelSimple/public/';
 
 $( document ).ready(function() {
-   traeUsuarios(); 
+   getUsers(); 
+   getTasks();
 });
 
 function showView(id,clases){
@@ -10,13 +11,11 @@ function showView(id,clases){
   $('#'+id).show();
 }
 
-function traeUsuarios(){
+function getUsers(){
 	//console.debug('va a cambiar');
-	
-
 	$.ajax({
 	  type: "GET",
-        url : base_url + "content_ajax",
+        url : base_url + "getUsers",
         success : function(data){
             //console.log(data);
             var model = $('#usuarios');
@@ -28,3 +27,26 @@ function traeUsuarios(){
         }
 	});
 }
+
+function getTasks(){
+	//console.debug('va a cambiar');
+	$.ajax({
+	  type: "GET",
+        url : base_url + "getTasks",
+        success : function(data){
+            //console.log(data);
+            var model = $('#tasks');
+			model.empty();
+			for (var i in data.tasks) {
+				var item = data.tasks[i];
+				model.append("<tr><th value='"+ item.Folio +"'>" + item.Folio + "</option>"+
+				"<th value='"+ item.folio +"'>" + item.areaSolicitante + "</option>"+
+				"<th value='"+ item.folio +"'>" + item.asunto + "</option>"+
+				"<th value='"+ item.folio +"'>" + item.fechaRespuesta + "</option> </tr>");
+			}
+        }
+	});
+}
+
+
+

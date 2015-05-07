@@ -50,4 +50,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface, Stapl
 
 	protected $hidden = array('password', 'remember_token');
 
+	public function tareas()
+    {
+        return $this->has_many('Tarea');
+    }
+
 }

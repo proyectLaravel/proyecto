@@ -21,8 +21,14 @@ class CreateUsersTable extends Migration {
 			$table->string('email')->unique();
 			$table->string('password');
 			$table->rememberToken();
+			$table->string('avatar_file_name')->nullable();
+			$table->integer('avatar_file_size')->nullable();
+			$table->string('avatar_content_type')->nullable();
+			$table->timestamp('avatar_updated_at')->nullable();
 			$table->timestamps();
 		});
+
+		
 	}
 
 	/**
@@ -32,6 +38,7 @@ class CreateUsersTable extends Migration {
 	 */
 	public function down()
 	{
+
 		Schema::drop('users');
 	}
 
