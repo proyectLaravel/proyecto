@@ -32,7 +32,7 @@
               <div class="navbar-collapse collapse">
                 <div>
                   @if (Auth::check())
-                    @if (Auth::user()->hasRole('crudRestriction'))
+                    
                       <ul class="nav navbar-nav pull-right">
                         <li class="dropdown">
                           <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -45,7 +45,7 @@
                           </ul>
                         </li>
                       </ul>
-                    @endif
+                    
                   @endif
                 </div>
               <div>
