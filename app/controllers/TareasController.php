@@ -41,6 +41,7 @@ class TareasController extends BaseController {
         Mail::send('emails.newTarea', array('first_name'=>$user->first_name), function($message) use ($user){
           $message->to($user->email, $user->first_name.' '.$user->last_name)->subject('Nueva tarea Asignada');
         });
+        return Redirect::back();
     }
   }
 

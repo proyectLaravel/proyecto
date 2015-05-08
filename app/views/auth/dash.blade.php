@@ -72,7 +72,7 @@
 
         <div id="main" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar">
 
-          <h1 class="page-header">Hola este es el principal</h1>
+          <h1 class="page-header">Historial de Tareas Asignadas</h1>
 
           
           <table class="table table-hover">

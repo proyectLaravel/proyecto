@@ -1,6 +1,7 @@
 var base_url = 'http://localhost/authLaravelSimple/public/';
 
 $( document ).ready(function() {
+   alert('hola')
    getUsers(); 
    getTasks();
 });
@@ -39,10 +40,10 @@ function getTasks(){
 			model.empty();
 			for (var i in data.tasks) {
 				var item = data.tasks[i];
-				model.append("<tr><th value='"+ item.Folio +"'>" + item.Folio + "</option>"+
-				"<th value='"+ item.folio +"'>" + item.areaSolicitante + "</option>"+
-				"<th value='"+ item.folio +"'>" + item.asunto + "</option>"+
-				"<th value='"+ item.folio +"'>" + item.fechaRespuesta + "</option> </tr>");
+				model.append("<tr><th value='"+ item.Folio +"'>" + item.Folio + "</th>"+
+				"<th value='"+ item.folio +"'>" + item.areaSolicitante + "</th>"+
+				"<th value='"+ item.folio +"'>" + item.asunto + "</th>"+
+				"<th value='"+ item.folio +"'>" + item.fechaRespuesta + "</th> </tr>");
 			}
         }
 	});
