@@ -1,7 +1,6 @@
 var base_url = 'http://localhost/authLaravelSimple/public/';
 
 $( document ).ready(function() {
-   alert('hola')
    getUsers(); 
    getTasks();
 });

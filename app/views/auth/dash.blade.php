@@ -32,18 +32,20 @@
               <div class="navbar-collapse collapse">
                 <div>
                   @if (Auth::check())
-                  <ul class="nav navbar-nav pull-right">
-                    <li class="dropdown">
-                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <span class="icon icon-wh i-profile">{{ Auth::user()->username }} </span><span class="caret"></span>
-                      </a>
-                      <ul class="dropdown-menu">
+                    @if (Auth::user()->hasRole('crudRestriction'))
+                      <ul class="nav navbar-nav pull-right">
+                        <li class="dropdown">
+                          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span class="icon icon-wh i-profile">{{ Auth::user()->username }} </span><span class="caret"></span>
+                          </a>
+                          <ul class="dropdown-menu">
 
-                        <li><a onclick="showView('updateUser','ocultar')">Editar usuario</a></li>
-                        <li><a href="{{ action('AuthController@logout') }}">Salir</a></li>
+                            <li><a onclick="showView('updateUser','ocultar')">Editar usuario</a></li>
+                            <li><a href="{{ action('AuthController@logout') }}">Salir</a></li>
+                          </ul>
+                        </li>
                       </ul>
-                    </li>
-                  </ul>
+                    @endif
                   @endif
                 </div>
               <div>
