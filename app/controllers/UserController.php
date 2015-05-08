@@ -4,11 +4,21 @@ class UserController extends BaseController {
 
   public function register()
   {
-    $data = Input::only(['first_name','last_name','username','email','password']);
+     
+    $data = Input::only(['first_name', 'last_name', 'username', 'email', 'password']);
 
     $newUser = User::create($data);
 
-    Mail::send('emails.welcome', array('first_name'=>Input::get('first_name')), function($message){
+    $role = Input::get('role');
+
+    if ($role == 1 ) {
+      $newUser->makeEmployee('super_admin');
+    }
+    else {
+     $newUser->makeEmployee('admin'); 
+    }
+
+   /* Mail::send('emails.welcome', array('first_name'=>Input::get('first_name')), function($message){
       $message->to(Input::get('email'), Input::get('first_name').' '.Input::get('last_name'))->subject('Welcome to AuthLaravelSimple');
     });
 
@@ -17,7 +27,7 @@ class UserController extends BaseController {
       return Redirect::to('dash');
     }
 
-    return Redirect::route('showRegister')->withInput();
+    return Redirect::route('showRegister')->withInput();*/
 
   }
 
