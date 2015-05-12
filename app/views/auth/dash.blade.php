@@ -4,12 +4,10 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AuthLaravelSimple</title>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <title>INCAN Sistema de Control de Gestión de Planeación</title>
+  <link rel="stylesheet" href="{{ asset('bootstrap-3.2.0/css/bootstrap.min.css') }}">
   <link href="{{ asset('css/dash.css') }}" rel="stylesheet">
-  <style>
-  @import url(//fonts.googleapis.com/css?family=Lato:700);
-  </style>
+  
 </head>
 <body>
 
@@ -22,7 +20,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">INCAN</a>
+          <a class="navbar-brand" href="#">INCAN Sistema de Control de Gestión de Planeación</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -242,25 +240,23 @@
 
       <!--Vista lista los usuarios-->
       <div id="listarUsuarios" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar" style="display:none" >
-          <div class="fluid">
-           
-           <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th>id </th>
-                  <th>Nombre </th>
-                  <th>Email</th>
-                  <th>Username</th>
-                  <th></th>
-                  
-                </tr>
-              </thead>
-              <tbody id="listUsers">
+        <div class="fluid">
+         
+         <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>id </th>
+                <th>Nombre </th>
+                <th>Email</th>
+                <th>Username</th>
+                <th></th>
                 
-              </tbody>
-            </table>
-            
-
+              </tr>
+            </thead>
+            <tbody id="listUsers">
+              
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -274,5 +270,6 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="{{ asset('js/dash.js') }}"></script>
+<script src="{{ asset('js/spin.min.js') }}"></script>
 
 </html>
