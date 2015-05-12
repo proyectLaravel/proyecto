@@ -84,7 +84,10 @@ body {
   margin-top: 0;
 }
 
-
+liListarUsuarios
+.navbar-brand{
+  color: #FFF!important;
+}
 /*
 * Placeholder dashboard ideas
 */

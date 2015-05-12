@@ -12,10 +12,10 @@ class UserController extends BaseController {
     $role = Input::get('role');
 
     if ($role == 1 ) {
-      $newUser->makeEmployee('super_admin');
+      $newUser->makeRole('super_admin');
     }
     else {
-     $newUser->makeEmployee('admin'); 
+     $newUser->makeRole('admin'); 
     }
 
     Mail::send('emails.welcome', array('first_name'=>Input::get('first_name')), function($message){
@@ -23,7 +23,7 @@ class UserController extends BaseController {
     });
 
     if($newUser){
-      Auth::login($newUser);
+      //Auth::login($newUser);
       return Redirect::to('dash');
     }
 
@@ -110,11 +110,24 @@ class UserController extends BaseController {
 
   public function getUsers()
   {
-    $users = DB::table('users')->get(['id','first_name']);
+    $users = DB::table('users')->get(['id', 'first_name', 'email', 'username']);
     return Response::json(array(
       'users' =>  $users
     ));
   }
 
+  public function listUsers()
+  {
+    $users = DB::table('users')->where('id','!=', Auth::user()->id)->get(['id', 'first_name', 'email', 'username']);
+    return Response::json(array(
+      'users' =>  $users
+    ));
+  }
+
+  public function deleteUser($id){
+    //var_dump($id);
+    $user = User::find($id);
+    $user->delete();
+  }
 
 }

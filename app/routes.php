@@ -7,7 +7,7 @@ Route::get('login', 'AuthController@showLogin');
 Route::post('login', 'AuthController@postLogin');
 Route::get('logout', 'AuthController@logout');
 
-Route::get('showRegister', 'AuthController@registerUser'); //show view new user
+ //show view new user
 Route::post('sign-up', ['as' => 'register', 'uses' => 'UserController@register' ] );//register new user
 
 Route::get('passRecovery', 'UserController@showPassRecovery');
@@ -23,6 +23,7 @@ Route::post('password/reset/{token}', ['as' => 'resetPass', 'uses' => 'UserContr
 Route::group(['before' => 'auth'], function()
 {
 	Route::get('/', 'HomeController@showWelcome');
+	Route::get('showRegister', 'AuthController@registerUser');
 
 	Route::get('dash', 'AuthController@showWelcome');
 
@@ -34,6 +35,11 @@ Route::group(['before' => 'auth'], function()
 
 	Route::get('getUsers', 'UserController@getUsers');
 	Route::get('getTasks', 'TareasController@getTasks');
+	Route::get('getTasksSuperAdmin', 'TareasController@getTasksSuperAdmin');
+	Route::get('listUsers', 'UserController@listUsers');
+	Route::get('deleteUser/{id}', 'UserController@deleteUser');
+	Route::post('uploadpdf', ['as' => 'uploadpdf', 'uses' => 'TareasController@uploadpdf' ] );
+	
 
 	//Route::post('uploadImage', 'UserController@uploadImage');
 });

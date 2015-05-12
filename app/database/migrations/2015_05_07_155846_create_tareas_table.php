@@ -16,10 +16,10 @@ class CreateTareasTable extends Migration {
 		Schema::create('tareas', function(Blueprint $table) {		
 			
 			$table->increments('tareas_id')->unsigned();
-			$table->integer('folio')->nullable();
+			$table->integer('folio')->nullable()->unique();
 			$table->string('asunto')->nullable();
 			$table->string('areaSolicitante')->nullable();
-			$table->datetime('fechaRespuesta')->nullable();
+			$table->dateTime('fecha_respuesta')->nullable();
 			$table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
 
