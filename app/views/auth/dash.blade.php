@@ -128,7 +128,7 @@
           </div>
         </div>
 
-        <div id="updateUser" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar" style="display:none" >
+        <div id="updateUser" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
           <div class="col-md-4 col-md-offset-4">
             <img class="img-circle" src="{{asset(Auth::user()->avatar->url('thumb')) }}" >
 
@@ -161,7 +161,7 @@
         </div>
       </div>
 
-      <div id="asignarTarea" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar" style="display:none" >
+      <div id="asignarTarea" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
           <div class="fluid">
            
             {{ Form::open(['route' => 'asignarTarea', 'method' => 'POST', 'role' => 'form','files' => true]) }}
@@ -170,14 +170,14 @@
               {{ Form::hidden('estatus', 'enproceso' ) }}
 
               {{ Form::label('Folio', 'Folio')}}
-              {{ Form::text('folio','', ['class' => 'form-control', 'placeholder' => 'Folio', 'autofocus' => '']) }}
+              {{ Form::text('folio','', ['id' => 'folio', 'class' => 'form-control', 'placeholder' => 'Folio', 'autofocus' => '']) }}
 
               {{ Form::label('Asunto', 'Asunto')}}
-              {{ Form::text('asunto', '', ['class' => 'form-control', 'placeholder' => 'Asunto', 'autofocus' => '']) }}
+              {{ Form::text('asunto', '', ['id' => 'asunto', 'class' => 'form-control', 'placeholder' => 'Asunto', 'autofocus' => '']) }}
 
               {{ Form::label('Asignado a', 'asignado a')}}
               <select id="usuarios" name="user_id">
-                <option>Please choose car make first</option>
+                <option>Por favor elige una opción</option>
               </select>
 
               {{ Form::label('Fecha de respuesta', 'fecha respuesta')}}
@@ -186,24 +186,17 @@
               {{ Form::custom('datepicker', 'date', 'fecha_respuesta') }}
               </br>
               {{ Form::label('Area Solicitante', 'Area Solicitante')}}
-              {{ Form::text('areaSolicitante', '' , ['class' => 'form-control', 'placeholder' => 'Area Solicitante', 'autofocus' => '']) }}
-              {{ Form::file('filePdf') }}
+              {{ Form::text('areaSolicitante', '' , ['id' => 'areaSolicitante', 'class' => 'form-control', 'placeholder' => 'Area Solicitante', 'autofocus' => '']) }}
+              {{ Form::file('filePdf',  ['id' => 'filePdf']) }}
 
             <p>
               <input type="submit" value="Asignar" class="btn btn-success">
             </p>
             {{ Form::close() }}
-
-            {{ Form::open(array('url' => 'uploadpdf','files' => true, 'method' => 'post')) }} 
-              
-              <p>
-              <input type="submit" value="enviar pdf" class="btn btn-success">
-            </p>
-            {{ Form::close() }} 
         </div>
       </div>
       <!--Vista que te permite crear un usuario-->
-      <div id="registrarUsuario" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar" style="display:none" >
+      <div id="registrarUsuario" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
           <div class="fluid">
            
             {{ Form::open(['route' => 'register', 'method' => 'POST', 'role' => 'form']) }}

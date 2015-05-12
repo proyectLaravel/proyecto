@@ -22,7 +22,7 @@ var opts = {
 
 function loadSpinner(){
 	//var target = $('#eliminar');
-	var target = document.getElementById('eliminar');
+	var target = document.getElementById('spin');
 	var spinner = new Spinner(opts).spin(target);
 }
 
@@ -32,6 +32,14 @@ $( document ).ready(function() {
    getTasksSuperAdmin();
    listUsers();
    $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+   $( "form" ).submit(function( event ) {
+	  	var target = document.getElementById('asignarTarea');
+	  	var target1 = document.getElementById('updateUser');
+	  	var target2 = document.getElementById('registrarUsuario');
+		var spinner = new Spinner(opts).spin(target);
+		var spinner1 = new Spinner(opts).spin(target1);
+		var spinner2 = new Spinner(opts).spin(target2);
+	});
 });
 
 function showView(id,clases){
@@ -136,4 +144,3 @@ function deleteUser(id){
         }
 	});
 }
-
