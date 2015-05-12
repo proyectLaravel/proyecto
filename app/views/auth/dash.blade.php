@@ -20,15 +20,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">INCAN Sistema de Control de Gestión de Planeación</a>
+          <a class="navbar-brand" href="#">Sistema de Control de Gestión de Planeación</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <!--<li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>-->
+            <li><a href="#">Settings</a></li>
             <li>
               <div>
-                @if (Auth::check())
                   <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav pull-right">
                       <li class="dropdown">
@@ -43,14 +42,16 @@
                       </li>
                     </ul>
                   </div>
-                @endif
               <div>
-            </li>
-            <li><a href="#" onclick="showView('updateUser','ocultar')">Perfil</a></li>
-            <li><a href="{{ action('AuthController@logout') }}">Cerrar Sesión</a></li>
+            </li>-->
+            @if(Auth::check())
+              <li><a href="#">{{ Auth::user()->username }}</a></li>
+              <li><a href="#" onclick="showView('updateUser','ocultar')">Perfil</a></li>
+              <li><a href="{{ action('AuthController@logout') }}">Cerrar Sesión</a></li>
+            @endif
           </ul>
           <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
+            <input type="text" class="form-control" placeholder="Buscar...">
           </form>
         </div>
       </div>
@@ -118,14 +119,6 @@
               </tbody>
             </table>
           @endif
-
-          
-
-          <h2 class="sub-header">Description</h2>
-          <div class="table-responsive">
-            <p>This project is a authentication system, bassically you can create users and make crud(create,read,update,delete) on him.
-            if you hace questions my tw: @ezeezegg</p>
-          </div>
         </div>
 
         <div id="updateUser" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar" style="display:none" >
