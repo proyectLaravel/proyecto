@@ -30,7 +30,7 @@ class AuthController extends BaseController {
   public function logout()
   {
     Auth::logout();
-    return Redirect::to('login')->with('error_message', 'Logged out correctly');
+    return Redirect::to('login')->with('error_message', 'Saliste Correctamente');
   }
 
   public function showWelcome()
