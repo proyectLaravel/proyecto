@@ -15,7 +15,7 @@ class CreateTareasTable extends Migration {
 
 		Schema::create('tareas', function(Blueprint $table) {		
 			
-			$table->increments('tareas_id')->unsigned();
+			$table->increments('id')->unsigned();
 			$table->integer('folio')->nullable()->unique();
 			$table->string('asunto')->nullable();
 			$table->string('areaSolicitante')->nullable();

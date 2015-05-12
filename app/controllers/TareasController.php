@@ -57,7 +57,7 @@ class TareasController extends BaseController {
 
   public function getTasksSuperAdmin()
   {
-    $tasks = DB::table('tareas')->get(['Folio','areaSolicitante', 'asunto', 'fecha_respuesta', 'user_id']);
+    $tasks = DB::table('tareas')->get(['id', 'Folio','areaSolicitante', 'asunto', 'fecha_respuesta', 'user_id']);
     return Response::json(array(
       'tasks' =>  $tasks
     ));
@@ -88,8 +88,13 @@ class TareasController extends BaseController {
   {
     $path = public_path(). '/files/';
     File::deleteDirectory($path,false);
-   
     return Redirect::back();
+  }
+
+  public function deleteTask($id){
+    //var_dump($id);
+    $tarea = Tarea::find($id);
+    $tarea->delete();
   }
 
 

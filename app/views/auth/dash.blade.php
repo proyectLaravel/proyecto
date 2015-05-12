@@ -92,11 +92,12 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th>Folio</th>
-                  <th>Area Solicitante </th>
-                  <th>Asunto</th>
-                  <th>Fecha Entrega</th>
-                  <th>Semaforo</th>
+                  <th class="center">Folio</th>
+                  <th class="center">Area Solicitante </th>
+                  <th class="center">Asunto</th>
+                  <th class="center">Fecha Entrega</th>
+                  <th class="center">Semaforo</th>
+                  <th class="center"></th>
                   
                 </tr>
               </thead>
@@ -109,11 +110,12 @@
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th>Folio</th>
-                  <th>Area Solicitante </th>
-                  <th>Asunto</th>
-                  <th>Fecha Entrega</th>
-                  <th>Semaforo</th>
+                  <th class="center">Folio</th>
+                  <th class="center">Area Solicitante </th>
+                  <th class="center">Asunto</th>
+                  <th class="center">Fecha Entrega</th>
+                  <th class="center">Semaforo</th>
+                  <th class="center"></th>
                   
                 </tr>
               </thead>
@@ -268,5 +270,6 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="{{ asset('js/dash.js') }}"></script>
 <script src="{{ asset('js/spin.min.js') }}"></script>
+<script src="{{ asset('js/date.format.js') }}"></script>
 
 </html>
