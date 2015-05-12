@@ -39,6 +39,7 @@ Route::group(['before' => 'auth'], function()
 	Route::get('listUsers', 'UserController@listUsers');
 	Route::get('deleteUser/{id}', 'UserController@deleteUser');
 	Route::post('uploadpdf', ['as' => 'uploadpdf', 'uses' => 'TareasController@uploadpdf' ] );
+	Route::get('cleanDD', ['as' => 'cleanDD', 'uses' => 'TareasController@cleanDD' ] );
 	
 
 	//Route::post('uploadImage', 'UserController@uploadImage');

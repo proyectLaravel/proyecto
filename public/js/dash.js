@@ -144,3 +144,15 @@ function deleteUser(id){
         }
 	});
 }
+
+function cleanDD(){
+	var target = document.getElementById('limpiarEspacio');
+	var spinner = new Spinner(opts).spin(target);
+	$.ajax({
+	  type: "GET",
+        url : base_url + "cleanDD",
+        success : function(data){
+        	spinner.stop();
+        }
+	});
+}

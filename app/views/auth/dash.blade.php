@@ -64,15 +64,18 @@
             <li  id="liMain" class="active lis">
               <a href="#" onclick="showView('main','ocultar');addClassActive('liMain','lis')">Tareas Asignadas <span class="sr-only">(current)</span></a>
             </li>
+            @if (Auth::user()->hasRole('super_admin'))
             <li id="liAsignarTarea" class="lis" onclick="addClassActive('liAsignarTarea','lis')">
               <a href="#" onclick="showView('asignarTarea','ocultar');addClassActive('liAsignarTarea','lis')">Asignar Tareas</a>
             </li>
-            @if (Auth::user()->hasRole('super_admin'))
             <li id="liRegistrarUsuario" class="lis">
               <a href="#" onclick="showView('registrarUsuario','ocultar');addClassActive('liRegistrarUsuario','lis')">Crear Usuarios</a>
             </li>
             <li id="liListarUsuarios" class="lis">
               <a href="#" onclick="showView('listarUsuarios','ocultar');addClassActive('liListarUsuarios','lis')">Listar Usuarios</a>
+            </li>
+            <li id="liLimpiarEspacio" class="lis">
+              <a href="#" onclick="showView('limpiarEspacio','ocultar');addClassActive('liLimpiarEspacio','lis')">Limpiar DD</a>
             </li>
             @endif
             <!--<li><a href="#">favorites</a></li>
@@ -243,6 +246,14 @@
               
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <!--Limpiar Espacio en Disco Duro-->
+      <div id="limpiarEspacio" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
+          <div class="col-md-4 col-md-offset-4">
+            
+            <div onclick="cleanDD()">Limpiar</div>
         </div>
       </div>
 

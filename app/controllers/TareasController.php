@@ -84,5 +84,13 @@ class TareasController extends BaseController {
     return Redirect::back();
   }
 
+  public function cleanDD()
+  {
+    $path = public_path(). '/files/';
+    File::deleteDirectory($path,false);
+   
+    return Redirect::back();
+  }
+
 
 }
