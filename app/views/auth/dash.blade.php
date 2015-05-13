@@ -7,6 +7,8 @@
   <title>INCAN Sistema de Control de Gestión de Planeación</title>
   <link rel="stylesheet" href="{{ asset('bootstrap-3.2.0/css/bootstrap.min.css') }}">
   <link href="{{ asset('css/dash.css') }}" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/buttons.css') }}"/>
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.css') }}"/>
   
 </head>
 <body>
@@ -291,7 +293,6 @@
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/noty/packaged/jquery.noty.packaged.min.js"></script>
 <script src="{{ asset('bootstrap-3.2.0/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('bootstrap-3.2.0/js/docs.min.js') }}"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -300,5 +301,7 @@
 <script src="{{ asset('js/spin.min.js') }}"></script>
 <script src="{{ asset('js/date.format.js') }}"></script>
 <script src="{{ asset('js/jquery-dateFormat.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/noty/packaged/jquery.noty.packaged.min.js') }}"></script>
+<script src="{{ asset('js/notyConfigurations.js') }}"></script>
 
 </html>

@@ -70,6 +70,10 @@ function getUsers() {
                 model.append("<option value='" + item.id + "'>" + item.first_name + "</option>");
             }
         }
+        ,
+        error: function (xhr, ajaxOptions, thrownError) {
+            generate('error', 'Lo siento no fue posible mostrar los usuarios');
+        }
     });
 }
 
@@ -98,6 +102,9 @@ function getTasks() {
                     "<th class='center'>" + item.estatus +
                     semaforo + "</th> </tr>");
             }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            generate('error', 'Lo siento no fue posible mostrar las tareas asignadas');
         }
     });
 }
@@ -131,6 +138,9 @@ function getTasksSuperAdmin() {
                     "<th class='center'><button type='button' class='btn btn-info' onclick='getTaskDetailsById(" + item.id + ")'>Ver Detalles</button></th>"+
                     "<th class='center'><button type='button' class='btn btn-danger' onclick='deleteTask(" + item.id + ")'>Eliminar</button></th> </tr>");
             }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            generate('error', 'Lo siento no fue posible mostrar las tareas asignadas');
         }
     });
 }
