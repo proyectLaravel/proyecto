@@ -71,6 +71,14 @@ class TareasController extends BaseController {
     ));
   }
 
+  public function getTaskDetailsById($id)
+  {
+    $tasks = DB::table('tareas')->where('id', $id)->get();
+    return Response::json(array(
+      'tasks' =>  $tasks
+    ));
+  }
+
   public function uploadpdf()
   {
     $path = public_path(). '/files/' . '/' . date("Y")  . '/' . date("m") . '/' . date("d") . '/';

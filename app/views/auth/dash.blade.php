@@ -128,7 +128,7 @@
           @endif
         </div>
 
-        <div id="updateUser" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
+        <section id="updateUser" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
           <div class="col-md-4 col-md-offset-4">
             <img class="img-circle" src="{{asset(Auth::user()->avatar->url('thumb')) }}" >
 
@@ -158,10 +158,10 @@
               <input type="submit" value="Actualizar" class="btn btn-success">
             </p>
             {{ Form::close() }}
-        </div>
-      </div>
+          </div>
+        </section>
 
-      <div id="asignarTarea" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
+      <section id="asignarTarea" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
           <div class="fluid">
            
             {{ Form::open(['route' => 'asignarTarea', 'method' => 'POST', 'role' => 'form','files' => true]) }}
@@ -211,9 +211,9 @@
               </p>
             {{ Form::close() }}
         </div>
-      </div>
+      </section>
       <!--Vista que te permite crear un usuario-->
-      <div id="registrarUsuario" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
+      <section id="registrarUsuario" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
           <div class="fluid">
            
             {{ Form::open(['route' => 'register', 'method' => 'POST', 'role' => 'form']) }}
@@ -246,10 +246,10 @@
             {{ Form::close() }}
 
         </div>
-      </div>
+      </section>
 
       <!--Vista lista los usuarios-->
-      <div id="listarUsuarios" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar" style="display:none" >
+      <section id="listarUsuarios" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar" style="display:none" >
         <div class="fluid">
          
          <table class="table table-hover">
@@ -268,15 +268,23 @@
             </tbody>
           </table>
         </div>
-      </div>
+      </section>
 
       <!--Limpiar Espacio en Disco Duro-->
-      <div id="limpiarEspacio" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
+      <section id="limpiarEspacio" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
           <div class="col-md-4 col-md-offset-4">
             
             <div onclick="cleanDD()">Limpiar</div>
         </div>
-      </div>
+      </section>
+
+      <!--Ver detalle tarea-->
+      <section id="verDetalleTarea" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
+          <div class="col-md-4 col-md-offset-4">
+            
+            <div id="detailsTask"></div>
+        </div>
+      </section>
 
       </div>
     </div>

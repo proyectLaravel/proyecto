@@ -127,7 +127,7 @@ function getTasksSuperAdmin() {
                     "<th class='center'>" + item.fecha_respuesta + "</th>" +
                     "<th class='center'" + item.folio + "'>" + item.estatus +
                     semaforo +
-                    "<th class='center'><button type='button' class='btn btn-info' onclick='viewDetails(" + item.id + ")'>Ver Detalles</button></th>"+
+                    "<th class='center'><button type='button' class='btn btn-info' onclick='getTaskDetailsById(" + item.id + ")'>Ver Detalles</button></th>"+
                     "<th class='center'><button type='button' class='btn btn-danger' onclick='deleteTask(" + item.id + ")'>Eliminar</button></th> </tr>");
             }
         }
@@ -189,6 +189,39 @@ function deleteTask(id) {
         success: function(data) {
             spinner.stop();
             getTasksSuperAdmin();
+        }
+    });
+}
+
+function getTaskDetailsById(id) {
+    //console.debug('va a cambiar');
+    showView('verDetalleTarea','ocultar')
+    $.ajax({
+        type: "GET",
+        url: base_url + "getTaskDetailsById/"+id,
+        success: function(data) {
+            d = new Date();
+            //console.log(data);
+            var model = $('#detailsTask');
+            model.empty();
+            for (var i in data.tasks) {
+                var item = data.tasks[i];
+                if (item.fecha_respuesta == d.format('Y\\-m\\-d 00\\:00\\:00')) {
+                    var semaforo = "<th class='center'><button type='button' class='btn btn-danger' style='border-radius:45%;'></button></th>";
+                } else {
+                    var semaforo = "<th class='center'><button type='button' class='btn btn-success' style='border-radius:45%;'></button></th>";
+                };
+                model.append("<tr><th class='center'" + item.folio + "'>" + item.folio + "</th>" +
+                    "<th class='center'" + item.folio + "'>" + item.oficio_referencia + "</th>" +
+                    "<th class='center'" + item.folio + "'>" + item.area_generadora + "</th>" +
+                    "<th class='center'" + item.folio + "'>" + item.asunto + "</th>" +
+                    "<th class='center'" + item.folio + "'>" + item.fecha_recepcion +
+                    "<th class='center'" + item.folio + "'>" + item.fecha_respuesta +
+                    "<th class='center'" + item.folio + "'>" + item.nombre_titular +
+                    "<th class='center'" + item.folio + "'>" + item.ubicacion_topografica +
+                    "<th class='center'" + item.folio + "'>" + item.estatus +
+                    semaforo + "</th> </tr>");
+            }
         }
     });
 }
