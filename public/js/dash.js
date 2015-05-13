@@ -90,12 +90,12 @@ function getTasks() {
                 } else {
                     var semaforo = "<th class='center'><button type='button' class='btn btn-success' style='border-radius:45%;'></button></th>";
                 };
-                model.append("<tr><th class='center'" + item.folio + "'>" + item.folio + "</th>" +
-                    "<th class='center'" + item.folio + "'>" + item.oficio_referencia + "</th>" +
-                    "<th class='center'" + item.folio + "'>" + item.area_generadora + "</th>" +
-                    "<th class='center'" + item.folio + "'>" + item.asunto + "</th>" +
-                    "<th class='center'" + item.folio + "'>" + item.fecha_respuesta +
-                    "<th class='center'" + item.folio + "'>" + item.estatus +
+                model.append("<tr><th class='center'>" + item.folio + "</th>" +
+                    "<th class='center'>" + item.oficio_referencia + "</th>" +
+                    "<th class='center'>" + item.area_generadora + "</th>" +
+                    "<th class='center'>" + item.asunto + "</th>" +
+                    "<th class='center'>" + item.fecha_respuesta +
+                    "<th class='center'>" + item.estatus +
                     semaforo + "</th> </tr>");
             }
         }
@@ -114,18 +114,19 @@ function getTasksSuperAdmin() {
             model.empty();
             for (var i in data.tasks) {
                 var item = data.tasks[i];
-                //alert( item.fecha_respuesta == d.format('Y\\-m\\-d 00\\:00\\:00'))
+                var fechar =item.fecha_respuesta;
+                //alert( $.format.parseDate(fechar, 'dd/MM/yyyy'))
                 if (item.fecha_respuesta == d.format('Y\\-m\\-d 00\\:00\\:00')) {
                     var semaforo = "<th class='center'><button type='button' class='btn btn-danger' style='border-radius:45%;'></button></th>";
                 } else {
                     var semaforo = "<th class='center'><button type='button' class='btn btn-success' style='border-radius:45%;'></button></th>";
                 };
                 model.append("<tr><th class='center'>" + item.folio + "</th>" +
-                    "<th class='center'" + item.folio + "'>" + item.oficio_referencia + "</th>" +
-                    "<th class='center'>" + item.area_generadora + "</th>" +
+                    "<th class='center'>" + item.oficio_referencia + "</th>" +
                     "<th class='center'>" + item.asunto + "</th>" +
-                    "<th class='center'>" + item.fecha_respuesta + "</th>" +
-                    "<th class='center'" + item.folio + "'>" + item.estatus +
+                    "<th class='center'>" + item.first_name + "</th>" +
+                    //"<th class='center shortDateFormat'>" + item.fecha_respuesta + "</th>" +
+                    //"<th class='center'>" + item.estatus +
                     semaforo +
                     "<th class='center'><button type='button' class='btn btn-info' onclick='getTaskDetailsById(" + item.id + ")'>Ver Detalles</button></th>"+
                     "<th class='center'><button type='button' class='btn btn-danger' onclick='deleteTask(" + item.id + ")'>Eliminar</button></th> </tr>");
@@ -225,3 +226,25 @@ function getTaskDetailsById(id) {
         }
     });
 }
+
+/*libraries*/
+
+jQuery(function() {
+    var shortDateFormat = 'dd/MM/yyyy';
+    var longDateFormat  = 'dd/MM/yyyy HH:mm:ss';
+
+    jQuery(".shortDateFormat").each(function (idx, elem) {
+        if (jQuery(elem).is(":input")) {
+            jQuery(elem).val(jQuery.format.date(jQuery(elem).val(), shortDateFormat));
+        } else {
+            jQuery(elem).text(jQuery.format.date(jQuery(elem).text(), shortDateFormat));
+        }
+    });
+    jQuery(".longDateFormat").each(function (idx, elem) {
+        if (jQuery(elem).is(":input")) {
+            jQuery(elem).val(jQuery.format.date(jQuery(elem).val(), longDateFormat));
+        } else {
+            jQuery(elem).text(jQuery.format.date(jQuery(elem).text(), longDateFormat));
+        }
+    });
+});

@@ -57,7 +57,7 @@ class TareasController extends BaseController {
 
   public function getTasksSuperAdmin()
   {
-    $tasks = DB::table('tareas')->get(['id', 'folio','area_generadora', 'asunto', 'fecha_respuesta', 'user_id', 'estatus', 'oficio_referencia']);
+    $tasks = DB::table('tareas')->join('users', 'user_id', '=', 'users.id')->get(['tareas.id', 'folio','area_generadora', 'asunto', 'fecha_respuesta', 'user_id', 'estatus', 'oficio_referencia', 'users.first_name']);
     return Response::json(array(
       'tasks' =>  $tasks
     ));

@@ -94,11 +94,10 @@
                 <tr>
                   <th class="center">Folio</th>
                   <th class="center">Oficio Referencia </th>
-                  <th class="center">Area Generadora </th>
                   <th class="center">Asunto</th>
-                  <th class="center">Fecha Entrega</th>
-                  <th class="center">Estatus</th>
-                  <th class="center">Semaforo</th>
+                  <th class="center">Asignado a</th>
+                  <th class="center">Semáforo</th>
+                  <th class="center"></th>
                   <th class="center"></th>
                   
                 </tr>
@@ -204,9 +203,10 @@
                 <option>En seguimiento</option>
               </select>
               </br>
+              </br>
               {{ Form::file('filePdf',  ['id' => 'filePdf']) }}
               </br>
-              <p>
+              <p class="center">
                 <input type="submit" value="Asignar" class="btn btn-success">
               </p>
             {{ Form::close() }}
@@ -291,6 +291,7 @@
 
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/noty/packaged/jquery.noty.packaged.min.js"></script>
 <script src="{{ asset('bootstrap-3.2.0/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('bootstrap-3.2.0/js/docs.min.js') }}"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -298,5 +299,6 @@
 <script src="{{ asset('js/dash.js') }}"></script>
 <script src="{{ asset('js/spin.min.js') }}"></script>
 <script src="{{ asset('js/date.format.js') }}"></script>
+<script src="{{ asset('js/jquery-dateFormat.min.js') }}"></script>
 
 </html>
