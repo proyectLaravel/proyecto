@@ -3,9 +3,9 @@ function generate(type, text) {
         text        : text,
         type        : type,
         dismissQueue: true,
-        timeout     : 1800,
+        timeout     : 2500,
         closeWith   : ['click'],
-        layout      : 'topCenter',
+        layout      : 'center',
         theme       : 'defaultTheme',
         maxVisible  : 10,
         animation: {

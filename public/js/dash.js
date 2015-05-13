@@ -69,8 +69,7 @@ function getUsers() {
                 var item = data.users[i];
                 model.append("<option value='" + item.id + "'>" + item.first_name + "</option>");
             }
-        }
-        ,
+        },
         error: function (xhr, ajaxOptions, thrownError) {
             generate('error', 'Lo siento no fue posible mostrar los usuarios');
         }
@@ -162,6 +161,9 @@ function listUsers() {
                     "<th value='" + item.email + "'>" + item.username + "</th>" +
                     "<th><button type='button' class='btn btn-danger' onclick='deleteUser(" + item.id + ")'>Eliminar</button></th>" + "</tr>");
             }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            generate('error', 'Lo siento no fue posible Listar los usuarios');
         }
     });
 }
@@ -173,8 +175,13 @@ function deleteUser(id) {
         type: "GET",
         url: base_url + "deleteUser/" + id,
         success: function(data) {
+            generate('success', 'Usuario eliminado correctamente');
             spinner.stop();
             listUsers();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            spinner.stop();
+            generate('error', 'Lo siento no fue posible eliminar este usuario');
         }
     });
 }
@@ -186,7 +193,12 @@ function cleanDD() {
         type: "GET",
         url: base_url + "cleanDD",
         success: function(data) {
+            generate('success', 'Servidor Limpio');
             spinner.stop();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            spinner.stop();
+            generate('error', 'Lo siento no fue posible limpiar tu servidor');
         }
     });
 }
@@ -198,8 +210,13 @@ function deleteTask(id) {
         type: "GET",
         url: base_url + "deleteTask/" + id,
         success: function(data) {
+            generate('success', 'Tarea eliminada correctamente');
             spinner.stop();
             getTasksSuperAdmin();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            spinner.stop();
+            generate('error', 'Lo siento no es posible eliminar estar tarea');
         }
     });
 }
@@ -211,6 +228,7 @@ function getTaskDetailsById(id) {
         type: "GET",
         url: base_url + "getTaskDetailsById/"+id,
         success: function(data) {
+
             d = new Date();
             //console.log(data);
             var model = $('#detailsTask');
@@ -222,20 +240,68 @@ function getTaskDetailsById(id) {
                 } else {
                     var semaforo = "<th class='center'><button type='button' class='btn btn-success' style='border-radius:45%;'></button></th>";
                 };
-                model.append("<tr><th class='center'" + item.folio + "'>" + item.folio + "</th>" +
-                    "<th class='center'" + item.folio + "'>" + item.oficio_referencia + "</th>" +
-                    "<th class='center'" + item.folio + "'>" + item.area_generadora + "</th>" +
-                    "<th class='center'" + item.folio + "'>" + item.asunto + "</th>" +
-                    "<th class='center'" + item.folio + "'>" + item.fecha_recepcion +
-                    "<th class='center'" + item.folio + "'>" + item.fecha_respuesta +
-                    "<th class='center'" + item.folio + "'>" + item.nombre_titular +
-                    "<th class='center'" + item.folio + "'>" + item.ubicacion_topografica +
-                    "<th class='center'" + item.folio + "'>" + item.estatus +
-                    semaforo + "</th> </tr>");
+
+                model.append("<form method='POST' id='updateTask' action='"+base_url+"updateTask/"+item.id+"'  accept-charset='UTF-8' role='form' enctype='multipart/form-data' class='fluid'>"+
+                    "<label for='Folio'>Folio</label>"+
+                    "<input id='folio' class='form-control' placeholder='Folio' autofocus='' name='folio' type='text' value='"+item.folio +"'>"+
+                    "<br>"+
+                    "<label for='Oficio Referencia'>Oficio Referencia</label>"+
+                    "<input id='oficio_referencia' class='form-control' placeholder='Oficio Referencia' autofocus='' name='oficio_referencia' type='text' value='"+item.oficio_referencia+"'>"+
+                    "<br>"+
+                    "<label for='Asunto'>Asunto</label>"+
+                    "<input id='asunto' class='form-control' placeholder='Asunto' autofocus='' name='asunto' type='text' value='"+item.asunto+"'>"+
+                    "<br>"+
+                    "<label for='Fecha de Recepción'>Fecha de Recepción:"+item.fecha_recepcion+"</label>"+
+                    "<br>"+
+                    "<label for='Fecha de Recepción'>Actualizar Fecha de Recepción</label>"+
+                    "<input class='datepicker' type='date' name='fecha_recepcion' value='"+item.fecha_recepcion+"' id='fecha_recepcion'>"+
+                    "<br>"+
+                    "<br>"+
+                    "<label for='Fecha de Respuesta'>Fecha de Respuesta:"+item.fecha_respuesta+"</label>"+
+                    "<br>"+
+                    "<label for='Fecha de Respuesta'>Actualizar Fecha de Respuesta</label>"+
+                    "<label for='Fecha de respuesta'>Fecha Respuesta</label>"+
+                    "<!-- class , type, name -->"+
+                    "<input class='datepicker' type='date' name='fecha_respuesta' value='"+item.fecha_respuesta+"' id='fecha_respuesta'>"+
+                    "<br>"+
+                    "<label for='Area Generadora'>Area Generadora</label>"+
+                    "<input id='area_generadora' class='form-control' placeholder='Area Generadora' autofocus='' name='area_generadora' type='text' value='"+item.area_generadora+"'>"+
+                    "<br>"+
+                    "<label for='Nombre del titular'>Nombre del Titular</label>"+
+                    "<input id='nombre_titular' class='form-control' placeholder='Nombre Titular' autofocus='' name='nombre_titular' type='text' value='"+item.nombre_titular+"'>"+
+                    "<br>"+
+                    "<label for='Asignado a'>Asignado a</label>"+
+                    "<select id='usuarios' name='user_id'><option value='"+item.user_id+"'>"+item.first_name+"</option></select>"+
+                    "<br>"+
+                    "<br>"+
+                    "<label for='Ubicación Topografica'>Ubicación Topografica</label>"+
+                    "<input id='ubicacion_topografica' class='form-control' placeholder='Ubicacion Topografica' autofocus='' name='ubicacion_topografica' type='text' value='"+item.ubicacion_topografica+"'>"+
+                  
+                    "<br>"+
+                    "<label for='Estatus'>Estatus</label>"+
+                    "<select id='estatus' name='estatus'>"+
+                        "<option>En seguimiento</option>"+
+                        "<option>Atendido</option>"+
+                        "<option>Finalizado</option>"+
+                    "</select>"+
+                    "<br>"+
+                    "<br>"+
+                    "<p class='center'>"+
+                        "<input type='submit' value='Asignar' class='btn btn-success'>"+
+                    "</p>"+
+                    "</form>"+
+                    "<p class='center'>"+
+                        "<input type='button' value='Actualizar' class='btn btn-success' onclick='updateTask()'>"+
+                    "</p>");
             }
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            spinner.stop();
+            generate('error', 'Lo siento no es posible obtener los detalles de esta tarea');
         }
     });
 }
+
 
 /*libraries*/
 

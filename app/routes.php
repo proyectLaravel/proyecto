@@ -42,6 +42,7 @@ Route::group(['before' => 'auth'], function()
 	Route::get('cleanDD', ['as' => 'cleanDD', 'uses' => 'TareasController@cleanDD' ] );
 	Route::get('deleteTask/{id}', ['as' => 'deleteTask', 'uses' => 'TareasController@deleteTask' ] );
 	Route::get('getTaskDetailsById/{id}', ['as' => 'getTaskDetailsById', 'uses' => 'TareasController@getTaskDetailsById' ] );
+	Route::post('updateTask/{id}', ['as' => 'updateTask', 'uses' => 'TareasController@updateTask' ] );
 	
 
 	//Route::post('uploadImage', 'UserController@uploadImage');

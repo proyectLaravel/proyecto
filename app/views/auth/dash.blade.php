@@ -282,9 +282,14 @@
 
       <!--Ver detalle tarea-->
       <section id="verDetalleTarea" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
-          <div class="col-md-4 col-md-offset-4">
+          <div class="fluid">
             
-            <div id="detailsTask"></div>
+            <div id="detailsTask">
+
+            </div>
+
+
+
         </div>
       </section>
 
