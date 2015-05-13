@@ -93,9 +93,11 @@
               <thead>
                 <tr>
                   <th class="center">Folio</th>
-                  <th class="center">Area Solicitante </th>
+                  <th class="center">Oficio Referencia </th>
+                  <th class="center">Area Generadora </th>
                   <th class="center">Asunto</th>
                   <th class="center">Fecha Entrega</th>
+                  <th class="center">Estatus</th>
                   <th class="center">Semaforo</th>
                   <th class="center"></th>
                   
@@ -163,33 +165,50 @@
           <div class="fluid">
            
             {{ Form::open(['route' => 'asignarTarea', 'method' => 'POST', 'role' => 'form','files' => true]) }}
-
               {{ Form::hidden('id', Auth::user()->id ) }}
               {{ Form::hidden('estatus', 'enproceso' ) }}
-
+              </br>
               {{ Form::label('Folio', 'Folio')}}
               {{ Form::text('folio','', ['id' => 'folio', 'class' => 'form-control', 'placeholder' => 'Folio', 'autofocus' => '']) }}
-
+              </br>
+              {{ Form::label('Oficio Referencia', 'Oficio Referencia')}}
+              {{ Form::text('oficio_referencia','', ['id' => 'oficio_referencia', 'class' => 'form-control', 'placeholder' => 'Oficio Referencia', 'autofocus' => '']) }}
+              </br>
               {{ Form::label('Asunto', 'Asunto')}}
               {{ Form::text('asunto', '', ['id' => 'asunto', 'class' => 'form-control', 'placeholder' => 'Asunto', 'autofocus' => '']) }}
-
-              {{ Form::label('Asignado a', 'asignado a')}}
+              </br>
+              {{ Form::label('Fecha de Recepción', 'Fecha Recepción')}}
+              {{ Form::custom('datepicker', 'date', 'fecha_recepcion') }}
+              {{ Form::label('Fecha de respuesta', 'Fecha Respuesta')}}
+              <!-- class , type, name -->
+              {{ Form::custom('datepicker', 'date', 'fecha_respuesta') }}
+              </br>
+              {{ Form::label('Area Generadora', 'Area Generadora')}}
+              {{ Form::text('area_generadora','', ['id' => 'area_generadora', 'class' => 'form-control', 'placeholder' => 'Area Generadora', 'autofocus' => '']) }}
+              </br>
+              {{ Form::label('Nombre del titular', 'Nombre del Titular')}}
+              {{ Form::text('nombre_titular', '', ['id' => 'nombre_titular', 'class' => 'form-control', 'placeholder' => 'Nombre Titular', 'autofocus' => '']) }}
+              </br>
+              {{ Form::label('Asignado a', 'Asignado a')}}
               <select id="usuarios" name="user_id">
                 <option>Por favor elige una opción</option>
               </select>
-
-              {{ Form::label('Fecha de respuesta', 'fecha respuesta')}}
-              
-              <!-- id , type, name -->
-              {{ Form::custom('datepicker', 'date', 'fecha_respuesta') }}
               </br>
-              {{ Form::label('Area Solicitante', 'Area Solicitante')}}
-              {{ Form::text('areaSolicitante', '' , ['id' => 'areaSolicitante', 'class' => 'form-control', 'placeholder' => 'Area Solicitante', 'autofocus' => '']) }}
+              </br>
+              {{ Form::label('Ubicación Topografica', 'Ubicación Topografica')}}
+              {{ Form::text('ubicacion_topografica','', ['id' => 'ubicacion_topografica', 'class' => 'form-control', 'placeholder' => 'Ubicacion Topografica', 'autofocus' => '']) }}
+              
+              </br>
+              {{ Form::label('Estatus', 'Estatus')}}
+              <select id="estatus" name="estatus">
+                <option>En seguimiento</option>
+              </select>
+              </br>
               {{ Form::file('filePdf',  ['id' => 'filePdf']) }}
-
-            <p>
-              <input type="submit" value="Asignar" class="btn btn-success">
-            </p>
+              </br>
+              <p>
+                <input type="submit" value="Asignar" class="btn btn-success">
+              </p>
             {{ Form::close() }}
         </div>
       </div>

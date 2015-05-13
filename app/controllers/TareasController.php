@@ -17,7 +17,7 @@ class TareasController extends BaseController {
     $folio           = Input::get('folio');
     $fechaRespuesta  = Input::get('fecha_respuesta');
     $asunto          = Input::get('asunto');
-    $areaSolicitante = Input::get('areaSolicitante');
+    $areaSolicitante = Input::get('area_generadora');
       
     $rules = array(
           'user_id' => 'numeric',
@@ -57,7 +57,7 @@ class TareasController extends BaseController {
 
   public function getTasksSuperAdmin()
   {
-    $tasks = DB::table('tareas')->get(['id', 'Folio','areaSolicitante', 'asunto', 'fecha_respuesta', 'user_id']);
+    $tasks = DB::table('tareas')->get(['id', 'folio','area_generadora', 'asunto', 'fecha_respuesta', 'user_id', 'estatus', 'oficio_referencia']);
     return Response::json(array(
       'tasks' =>  $tasks
     ));
@@ -65,7 +65,7 @@ class TareasController extends BaseController {
 
   public function getTasks()
   {
-    $tasks = DB::table('tareas')->where('user_id', Auth::user()->id)->get(['Folio','areaSolicitante', 'asunto', 'fecha_respuesta', 'user_id']);
+    $tasks = DB::table('tareas')->where('user_id', Auth::user()->id)->get(['folio','area_generadora', 'asunto', 'fecha_respuesta', 'user_id', 'estatus', 'oficio_referencia']);
     return Response::json(array(
       'tasks' =>  $tasks
     ));

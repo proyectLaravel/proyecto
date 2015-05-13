@@ -31,7 +31,7 @@ $(document).ready(function() {
     getTasks();
     getTasksSuperAdmin();
     listUsers();
-    $("#datepicker").datepicker({
+    $(".datepicker").datepicker({
         dateFormat: 'yy-mm-dd'
     });
     $("form").submit(function(event) {
@@ -90,10 +90,12 @@ function getTasks() {
                 } else {
                     var semaforo = "<th class='center'><button type='button' class='btn btn-success' style='border-radius:45%;'></button></th>";
                 };
-                model.append("<tr><th class='center'" + item.Folio + "'>" + item.Folio + "</th>" +
-                    "<th class='center'" + item.folio + "'>" + item.areaSolicitante + "</th>" +
+                model.append("<tr><th class='center'" + item.folio + "'>" + item.folio + "</th>" +
+                    "<th class='center'" + item.folio + "'>" + item.oficio_referencia + "</th>" +
+                    "<th class='center'" + item.folio + "'>" + item.area_generadora + "</th>" +
                     "<th class='center'" + item.folio + "'>" + item.asunto + "</th>" +
                     "<th class='center'" + item.folio + "'>" + item.fecha_respuesta +
+                    "<th class='center'" + item.folio + "'>" + item.estatus +
                     semaforo + "</th> </tr>");
             }
         }
@@ -118,11 +120,14 @@ function getTasksSuperAdmin() {
                 } else {
                     var semaforo = "<th class='center'><button type='button' class='btn btn-success' style='border-radius:45%;'></button></th>";
                 };
-                model.append("<tr><th class='center'>" + item.Folio + "</th>" +
-                    "<th class='center'>" + item.areaSolicitante + "</th>" +
+                model.append("<tr><th class='center'>" + item.folio + "</th>" +
+                    "<th class='center'" + item.folio + "'>" + item.oficio_referencia + "</th>" +
+                    "<th class='center'>" + item.area_generadora + "</th>" +
                     "<th class='center'>" + item.asunto + "</th>" +
                     "<th class='center'>" + item.fecha_respuesta + "</th>" +
+                    "<th class='center'" + item.folio + "'>" + item.estatus +
                     semaforo +
+                    "<th class='center'><button type='button' class='btn btn-info' onclick='viewDetails(" + item.id + ")'>Ver Detalles</button></th>"+
                     "<th class='center'><button type='button' class='btn btn-danger' onclick='deleteTask(" + item.id + ")'>Eliminar</button></th> </tr>");
             }
         }

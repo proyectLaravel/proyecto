@@ -82,7 +82,7 @@ require app_path().'/filters.php';
 
 Form::macro('custom', function($id, $type, $name, $value = null, $options = array()) {
     $value = ((is_null($value) or $value == '')) ? Input::old($name) : $value;
-    $input =  '<input id="'. $id .'" type="'. $type .'" name="' . $name . '" value="' . $value . '"';
+    $input =  '<input class="'. $id .'" type="'. $type .'" name="' . $name . '" value="' . $value . '"';
     foreach ($options as $key => $value) {
         $input .= ' ' . $key . '="' . $value . '"';
     }

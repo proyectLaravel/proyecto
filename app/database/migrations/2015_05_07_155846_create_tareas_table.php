@@ -18,8 +18,13 @@ class CreateTareasTable extends Migration {
 			$table->increments('id')->unsigned();
 			$table->integer('folio')->nullable()->unique();
 			$table->string('asunto')->nullable();
-			$table->string('areaSolicitante')->nullable();
+			$table->string('oficio_referencia')->nullable();
+			$table->dateTime('fecha_recepcion')->nullable();
 			$table->dateTime('fecha_respuesta')->nullable();
+			$table->string('area_generadora')->nullable();
+			$table->string('nombre_titular')->nullable();
+			$table->string('ubicacion_topografica')->nullable();
+			$table->string('estatus')->nullable();
 			$table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
 
