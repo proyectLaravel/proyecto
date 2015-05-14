@@ -70,7 +70,7 @@ function getUsers() {
                 model.append("<option value='" + item.id + "'>" + item.first_name + "</option>");
             }
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function(xhr, ajaxOptions, thrownError) {
             generate('error', 'Lo siento no fue posible mostrar los usuarios');
         }
     });
@@ -95,14 +95,16 @@ function getTasks() {
                 };
                 model.append("<tr><th class='center'>" + item.folio + "</th>" +
                     "<th class='center'>" + item.oficio_referencia + "</th>" +
-                    "<th class='center'>" + item.area_generadora + "</th>" +
                     "<th class='center'>" + item.asunto + "</th>" +
-                    "<th class='center'>" + item.fecha_respuesta +
-                    "<th class='center'>" + item.estatus +
-                    semaforo + "</th> </tr>");
+                    "<th class='center'>" + item.first_name + "</th>" +
+                    //"<th class='center shortDateFormat'>" + item.fecha_respuesta + "</th>" +
+                    //"<th class='center'>" + item.estatus +
+                    semaforo +
+                    "<th class='center'><button type='button' class='btn btn-info' onclick='getTaskDetailsByIdOperative(" + item.id + ")'>Ver Detalles</button></th>"+
+                    "<th class='center'><button type='button' class='btn btn-warning' onclick='showRejectTask(" + item.id + ")'>Rechazar</button></th>");
             }
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function(xhr, ajaxOptions, thrownError) {
             generate('error', 'Lo siento no fue posible mostrar las tareas asignadas');
         }
     });
@@ -120,7 +122,7 @@ function getTasksSuperAdmin() {
             model.empty();
             for (var i in data.tasks) {
                 var item = data.tasks[i];
-                var fechar =item.fecha_respuesta;
+                var fechar = item.fecha_respuesta;
                 //alert( $.format.parseDate(fechar, 'dd/MM/yyyy'))
                 if (item.fecha_respuesta == d.format('Y\\-m\\-d 00\\:00\\:00')) {
                     var semaforo = "<th class='center'><button type='button' class='btn btn-danger' style='border-radius:45%;'></button></th>";
@@ -134,11 +136,11 @@ function getTasksSuperAdmin() {
                     //"<th class='center shortDateFormat'>" + item.fecha_respuesta + "</th>" +
                     //"<th class='center'>" + item.estatus +
                     semaforo +
-                    "<th class='center'><button type='button' class='btn btn-info' onclick='getTaskDetailsById(" + item.id + ")'>Ver Detalles</button></th>"+
+                    "<th class='center'><button type='button' class='btn btn-info' onclick='getTaskDetailsById(" + item.id + ")'>Ver Detalles</button></th>" +
                     "<th class='center'><button type='button' class='btn btn-danger' onclick='deleteTask(" + item.id + ")'>Eliminar</button></th> </tr>");
             }
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function(xhr, ajaxOptions, thrownError) {
             generate('error', 'Lo siento no fue posible mostrar las tareas asignadas');
         }
     });
@@ -162,7 +164,7 @@ function listUsers() {
                     "<th><button type='button' class='btn btn-danger' onclick='deleteUser(" + item.id + ")'>Eliminar</button></th>" + "</tr>");
             }
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function(xhr, ajaxOptions, thrownError) {
             generate('error', 'Lo siento no fue posible Listar los usuarios');
         }
     });
@@ -179,7 +181,7 @@ function deleteUser(id) {
             spinner.stop();
             listUsers();
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function(xhr, ajaxOptions, thrownError) {
             spinner.stop();
             generate('error', 'Lo siento no fue posible eliminar este usuario');
         }
@@ -196,7 +198,7 @@ function cleanDD() {
             generate('success', 'Servidor Limpio');
             spinner.stop();
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function(xhr, ajaxOptions, thrownError) {
             spinner.stop();
             generate('error', 'Lo siento no fue posible limpiar tu servidor');
         }
@@ -214,7 +216,7 @@ function deleteTask(id) {
             spinner.stop();
             getTasksSuperAdmin();
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function(xhr, ajaxOptions, thrownError) {
             spinner.stop();
             generate('error', 'Lo siento no es posible eliminar estar tarea');
         }
@@ -223,10 +225,10 @@ function deleteTask(id) {
 
 function getTaskDetailsById(id) {
     //console.debug('va a cambiar');
-    showView('verDetalleTarea','ocultar')
+    showView('verDetalleTarea', 'ocultar')
     $.ajax({
         type: "GET",
-        url: base_url + "getTaskDetailsById/"+id,
+        url: base_url + "getTaskDetailsById/" + id,
         success: function(data) {
 
             d = new Date();
@@ -241,82 +243,190 @@ function getTaskDetailsById(id) {
                     var semaforo = "<th class='center'><button type='button' class='btn btn-success' style='border-radius:45%;'></button></th>";
                 };
 
-                model.append("<form method='POST' id='updateTask' action='"+base_url+"updateTask/"+item.id+"'  accept-charset='UTF-8' role='form' enctype='multipart/form-data' class='fluid'>"+
-                    "<label for='Folio'>Folio</label>"+
-                    "<input id='folio' class='form-control' placeholder='Folio' autofocus='' name='folio' type='text' value='"+item.folio +"'>"+
-                    "<br>"+
-                    "<label for='Oficio Referencia'>Oficio Referencia</label>"+
-                    "<input id='oficio_referencia' class='form-control' placeholder='Oficio Referencia' autofocus='' name='oficio_referencia' type='text' value='"+item.oficio_referencia+"'>"+
-                    "<br>"+
-                    "<label for='Asunto'>Asunto</label>"+
-                    "<input id='asunto' class='form-control' placeholder='Asunto' autofocus='' name='asunto' type='text' value='"+item.asunto+"'>"+
-                    "<br>"+
-                    "<label for='Fecha de Recepción'>Fecha de Recepción:"+item.fecha_recepcion+"</label>"+
-                    "<br>"+
-                    "<label for='Fecha de Recepción'>Actualizar Fecha de Recepción</label>"+
-                    "<input class='datepicker' type='date' name='fecha_recepcion' value='"+item.fecha_recepcion+"' id='fecha_recepcion'>"+
-                    "<br>"+
-                    "<br>"+
-                    "<label for='Fecha de Respuesta'>Fecha de Respuesta:"+item.fecha_respuesta+"</label>"+
-                    "<br>"+
-                    "<label for='Fecha de Respuesta'>Actualizar Fecha de Respuesta</label>"+
-                    "<label for='Fecha de respuesta'>Fecha Respuesta</label>"+
-                    "<!-- class , type, name -->"+
-                    "<input class='datepicker' type='date' name='fecha_respuesta' value='"+item.fecha_respuesta+"' id='fecha_respuesta'>"+
-                    "<br>"+
-                    "<label for='Area Generadora'>Area Generadora</label>"+
-                    "<input id='area_generadora' class='form-control' placeholder='Area Generadora' autofocus='' name='area_generadora' type='text' value='"+item.area_generadora+"'>"+
-                    "<br>"+
-                    "<label for='Nombre del titular'>Nombre del Titular</label>"+
-                    "<input id='nombre_titular' class='form-control' placeholder='Nombre Titular' autofocus='' name='nombre_titular' type='text' value='"+item.nombre_titular+"'>"+
-                    "<br>"+
-                    "<label for='Asignado a'>Asignado a</label>"+
-                    "<select id='usuarios' name='user_id'><option value='"+item.user_id+"'>"+item.first_name+"</option></select>"+
-                    "<br>"+
-                    "<br>"+
-                    "<label for='Ubicación Topografica'>Ubicación Topografica</label>"+
-                    "<input id='ubicacion_topografica' class='form-control' placeholder='Ubicacion Topografica' autofocus='' name='ubicacion_topografica' type='text' value='"+item.ubicacion_topografica+"'>"+
-                  
-                    "<br>"+
-                    "<label for='Estatus'>Estatus</label>"+
-                    "<select id='estatus' name='estatus'>"+
-                        "<option>En seguimiento</option>"+
-                        "<option>Atendido</option>"+
-                        "<option>Finalizado</option>"+
-                    "</select>"+
-                    "<br>"+
-                    "<br>"+
-                    "<p class='center'>"+
-                        "<input type='submit' value='Asignar' class='btn btn-success'>"+
-                    "</p>"+
-                    "</form>"+
-                    "<p class='center'>"+
-                        "<input type='button' value='Actualizar' class='btn btn-success' onclick='updateTask()'>"+
-                    "</p>");
+                model.append("<form method='POST' id='updateTask' action='" + base_url + "updateTask/" + item.id + "'  accept-charset='UTF-8' role='form' enctype='multipart/form-data' class='fluid'>" +
+                    "<label for='Folio'>Folio</label>" +
+                    "<input id='folio' class='form-control' placeholder='Folio' autofocus='' name='folio' type='text' value='" + item.folio + "'>" +
+                    "<br>" +
+                    "<label for='Oficio Referencia'>Oficio Referencia</label>" +
+                    "<input id='oficio_referencia' class='form-control' placeholder='Oficio Referencia' autofocus='' name='oficio_referencia' type='text' value='" + item.oficio_referencia + "'>" +
+                    "<br>" +
+                    "<label for='Asunto'>Asunto</label>" +
+                    "<input id='asunto' class='form-control' placeholder='Asunto' autofocus='' name='asunto' type='text' value='" + item.asunto + "'>" +
+                    "<br>" +
+                    "<label for='Fecha de Recepción'>Fecha de Recepción:" + item.fecha_recepcion + "</label>" +
+                    "<br>" +
+                    "<label for='Fecha de Recepción'>Actualizar Fecha de Recepción</label>" +
+                    "<input class='datepicker' type='date' name='fecha_recepcion' value='" + item.fecha_recepcion + "' id='fecha_recepcion'>" +
+                    "<br>" +
+                    "<br>" +
+                    "<label for='Fecha de Respuesta'>Fecha de Respuesta:" + item.fecha_respuesta + "</label>" +
+                    "<br>" +
+                    "<label for='Fecha de Respuesta'>Actualizar Fecha de Respuesta</label>" +
+                    "<label for='Fecha de respuesta'>Fecha Respuesta</label>" +
+                    "<!-- class , type, name -->" +
+                    "<input class='datepicker' type='date' name='fecha_respuesta' value='" + item.fecha_respuesta + "' id='fecha_respuesta'>" +
+                    "<br>" +
+                    "<label for='Area Generadora'>Area Generadora</label>" +
+                    "<input id='area_generadora' class='form-control' placeholder='Area Generadora' autofocus='' name='area_generadora' type='text' value='" + item.area_generadora + "'>" +
+                    "<br>" +
+                    "<label for='Nombre del titular'>Nombre del Titular</label>" +
+                    "<input id='nombre_titular' class='form-control' placeholder='Nombre Titular' autofocus='' name='nombre_titular' type='text' value='" + item.nombre_titular + "'>" +
+                    "<br>" +
+                    "<label for='Asignado a'>Asignado a</label>" +
+                    "<select id='usuarios' name='user_id'><option value='" + item.user_id + "'>" + item.first_name + "</option></select>" +
+                    "<br>" +
+                    "<br>" +
+                    "<label for='Ubicación Topografica'>Ubicación Topografica</label>" +
+                    "<input id='ubicacion_topografica' class='form-control' placeholder='Ubicacion Topografica' autofocus='' name='ubicacion_topografica' type='text' value='" + item.ubicacion_topografica + "'>" +
+
+                    "<br>" +
+                    "<label for='Estatus'>Estatus</label>" +
+                    "<select id='estatus' name='estatus'>" +
+                    "<option selected>"+item.estatus+"</option>" +
+                    "<option>En seguimiento</option>" +
+                    "<option>Atendido</option>" +
+                    "<option>Finalizado</option>" +
+                    "</select>" +
+                    "<br>" +
+                    "<br>" +
+                    "<p class='center'>" +
+                    "<input type='submit' value='Actualizar' class='btn btn-success'>" +
+                    "</p>" +
+                    "</form>");
             }
         },
-        error: function (xhr, ajaxOptions, thrownError) {
+        error: function(xhr, ajaxOptions, thrownError) {
             spinner.stop();
             generate('error', 'Lo siento no es posible obtener los detalles de esta tarea');
         }
     });
 }
 
+function getTaskDetailsByIdOperative(id) {
+    //console.debug('va a cambiar');
+    showView('verDetalleTarea', 'ocultar');
+    $.ajax({
+        type: "GET",
+        url: base_url + "getTaskDetailsById/" + id,
+        success: function(data) {
+
+            d = new Date();
+            //console.log(data);
+            var model = $('#detailsTask');
+            model.empty();
+            for (var i in data.tasks) {
+                var item = data.tasks[i];
+                if (item.fecha_respuesta == d.format('Y\\-m\\-d 00\\:00\\:00')) {
+                    var semaforo = "<th class='center'><button type='button' class='btn btn-danger' style='border-radius:45%;'></button></th>";
+                } else {
+                    var semaforo = "<th class='center'><button type='button' class='btn btn-success' style='border-radius:45%;'></button></th>";
+                };
+
+                model.append("<form method='POST' id='updateTask' action='" + base_url + "updateTask/" + item.id + "'  accept-charset='UTF-8' role='form' enctype='multipart/form-data' class='fluid'>" +
+                    
+                    "<input name='folio' type='hidden' value='" + item.folio + "'>"+
+                    "<input name='oficio_referencia' type='hidden' value='" + item.oficio_referencia + "'>"+
+                    "<input name='asunto' type='hidden' value='" + item.asunto + "'>"+
+                    "<input name='fecha_recepcion' type='hidden' value='"+item.fecha_recepcion+"'>"+
+                    "<input name='fecha_respuesta' type='hidden' value='"+ item.fecha_respuesta +"'>"+
+                    "<input name='area_generadora' type='hidden' value='" + item.area_generadora + "'>"+
+                    "<input name='nombre_titular' type='hidden' value='" + item.nombre_titular + "'>"+
+                    "<input name='user_id' type='hidden' value='" + item.user_id + "'>"+
+                    "<input name='ubicacion_topografica' type='hidden' value='" + item.ubicacion_topografica + "'>"+
+                    "<input name='' type='hidden' value=''>"+
+
+                    "<label for='Fecha de Recepción'>Folio: " + item.folio + "</label>" +
+                    "<br>" +
+                    "<label for='Fecha de Recepción'>Oficio Referencia:" + item.oficio_referencia + "</label>" +
+                    "<br>" +
+                    "<label for='Fecha de Recepción'>Asunto:" + item.asunto + "</label>" +
+                    "<br>" +
+                    "<label for='Fecha de Recepción'>Fecha de Recepción:" + item.fecha_recepcion + "</label>" +
+                    "<br>" +
+                    "<label for='Fecha de Recepción'>Fecha de Respuesta:" + item.fecha_respuesta + "</label>" +
+                    "<br>" +
+                    "<label for='Fecha de Recepción'>Area generadora:" + item.area_generadora + "</label>" +
+                    "<br>" +
+                    "<label for='Fecha de Recepción'Nombre titular:" + item.nombre_titular + "</label>" +
+                    "<br>" +
+                    "<label for='Fecha de Recepción'>Ubicacion topografica:" + item.ubicacion_topografica + "</label>" +
+
+                    "<br>" +
+                    "<label for='Estatus'>Estatus</label>" +
+                    "<select id='estatus' name='estatus'>" +
+                    "<option selected>"+item.estatus+"</option>" +
+                    "<option>En seguimiento</option>" +
+                    "<option>Atendido</option>" +
+                    "<option>Finalizado</option>" +
+                    "</select>" +
+                    "<br>" +
+                    "<br>" +
+                    "<p class='center'>" +
+                    "<input type='submit' value='Actualizar' class='btn btn-success'>" +
+                    "</p>" +
+                    "</form>");
+            }
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            spinner.stop();
+            generate('error', 'Lo siento no es posible obtener los detalles de esta tarea');
+        }
+    });
+}
+
+function showRejectTask(id){
+    showView('rechazarTarea', 'ocultar');
+
+     var model = $('#showRejectTask');
+            model.empty();
+            model.append("<form method='POST' id='updateTask' action='" + base_url + "sendRejectTask/" + id + "'  accept-charset='UTF-8' role='form' enctype='multipart/form-data' class='fluid'>" +
+                
+                "</br><span>Lo sentimos quizás esta mal asignada esta tarea. Escribe tus comentarios por favor.</span>"+
+                "<textarea id='comentariosRechazarTarea' class='form-control fluid' placeholder='Comentarios... ' name='comentarios'></textarea>"+
+               
+                "</form>"+
+                "<div class='center'><button type='button' class='btn btn-success' onclick='sendRejectTask("+id+");'>Rechazar esta tarea</button></div>");
+
+}
+
+function sendRejectTask(id){
+    
+    var comentarios = $('#comentariosRechazarTarea').val();
+    var DATA = 'id='+id+'&comentarios='+comentarios;
+    //alert(DATA)
+
+    
+    $.ajax({
+        url: base_url+'sendRejectTask',
+        type: 'POST',
+        data: DATA,
+        contentType: 'application/x-www-form-urlencoded',
+        success: function(data){
+            //alert(data)
+            generate('success', 'Tarea rechazada correctamente, espera la validación');
+
+        },
+        error: function( xhr, ajaxOptions, thrownError ){
+            spinner.stop();
+            generate('error', 'Lo siento no es posible rechazar esta tarea');
+        }
+    });
+}
 
 /*libraries*/
 
 jQuery(function() {
     var shortDateFormat = 'dd/MM/yyyy';
-    var longDateFormat  = 'dd/MM/yyyy HH:mm:ss';
+    var longDateFormat = 'dd/MM/yyyy HH:mm:ss';
 
-    jQuery(".shortDateFormat").each(function (idx, elem) {
+    jQuery(".shortDateFormat").each(function(idx, elem) {
         if (jQuery(elem).is(":input")) {
             jQuery(elem).val(jQuery.format.date(jQuery(elem).val(), shortDateFormat));
         } else {
             jQuery(elem).text(jQuery.format.date(jQuery(elem).text(), shortDateFormat));
         }
     });
-    jQuery(".longDateFormat").each(function (idx, elem) {
+    jQuery(".longDateFormat").each(function(idx, elem) {
         if (jQuery(elem).is(":input")) {
             jQuery(elem).val(jQuery.format.date(jQuery(elem).val(), longDateFormat));
         } else {

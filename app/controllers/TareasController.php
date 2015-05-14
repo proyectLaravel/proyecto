@@ -67,7 +67,9 @@ class TareasController extends BaseController {
 
   public function getTasks()
   {
-    $tasks = DB::table('tareas')->where('user_id', Auth::user()->id)->get(['folio','area_generadora', 'asunto', 'fecha_respuesta', 'user_id', 'estatus', 'oficio_referencia']);
+    $tasks = DB::table('tareas')
+      ->join('users', 'user_id', '=', 'users.id')
+      ->where('user_id', Auth::user()->id)->get(['tareas.id', 'folio','area_generadora', 'asunto', 'estatus', 'fecha_respuesta', 'user_id', 'estatus', 'oficio_referencia', 'users.first_name']);
     return Response::json(array(
       'tasks' =>  $tasks
     ));
@@ -111,17 +113,27 @@ class TareasController extends BaseController {
 
   public function updateTask($id){
     $data = Input::all();
-
-    // Use Eloquent to grab the gift record that we want to update,
-  // referenced by the ID passed to the REST endpoint
     $task = Tarea::find($id);
-
-    // Call fill on the gift and pass in the data
     $task->fill($data);
-
     $task->save();
     return Redirect::back();
   }
 
+  public function sendRejectTask(){
+    $data = array
+        (
+        'id'    =>  $_POST['id'],
+        'comentarios'   =>  $_POST['comentarios']
+        );
+    
+    
+    if(Request::ajax())
+    {
+      Mail::send('emails.rejectTarea', $data, function($message)
+        {
+          $message->to(Auth::user()->email)->subject('Tarea Rechazada');
+        });
+    }
+  }
 
 }

@@ -114,10 +114,11 @@
               <thead>
                 <tr>
                   <th class="center">Folio</th>
-                  <th class="center">Area Solicitante </th>
+                  <th class="center">Oficio Referencia </th>
                   <th class="center">Asunto</th>
-                  <th class="center">Fecha Entrega</th>
-                  <th class="center">Semaforo</th>
+                  <th class="center">Asignado a</th>
+                  <th class="center">Semáforo</th>
+                  <th class="center"></th>
                   <th class="center"></th>
                   
                 </tr>
@@ -290,6 +291,14 @@
 
 
 
+        </div>
+      </section>
+
+      <!--Ver detalle tarea-->
+      <section id="rechazarTarea" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
+        <div class="fluid">
+          <div id="showRejectTask"></div>
+       
         </div>
       </section>
 
