@@ -22,7 +22,7 @@ class AuthController extends BaseController {
       return Redirect::to('dash');
     }
     else{
-      return Redirect::back()->with('error_message', 'Invalid data')->withInput();
+      return Redirect::back()->with('error_message', 'Verifica tu información')->withInput();
     }
 
   }

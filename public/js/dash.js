@@ -38,9 +38,11 @@ $(document).ready(function() {
         var target = document.getElementById('asignarTarea');
         var target1 = document.getElementById('updateUser');
         var target2 = document.getElementById('registrarUsuario');
+        var target3 = document.getElementById('sendRejectTask');
         var spinner = new Spinner(opts).spin(target);
         var spinner1 = new Spinner(opts).spin(target1);
         var spinner2 = new Spinner(opts).spin(target2);
+        var spinner3 = new Spinner(opts).spin(target3);
     });
 });
 
@@ -137,7 +139,7 @@ function getTasksSuperAdmin() {
                     //"<th class='center'>" + item.estatus +
                     semaforo +
                     "<th class='center'><button type='button' class='btn btn-info' onclick='getTaskDetailsById(" + item.id + ")'>Ver Detalles</button></th>" +
-                    "<th class='center'><button type='button' class='btn btn-danger' onclick='deleteTask(" + item.id + ")'>Eliminar</button></th> </tr>");
+                    "<th class='center'><button type='button' class='btn btn-danger' onclick='showDeleteTask(" + item.id + ")'>Eliminar</button></th> </tr>");
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {
@@ -161,7 +163,7 @@ function listUsers() {
                     "<th value='" + item.email + "'>" + item.first_name + "</th>" +
                     "<th value='" + item.email + "'>" + item.email + "</th>" +
                     "<th value='" + item.email + "'>" + item.username + "</th>" +
-                    "<th><button type='button' class='btn btn-danger' onclick='deleteUser(" + item.id + ")'>Eliminar</button></th>" + "</tr>");
+                    "<th><button type='button' class='btn btn-danger' onclick='showDeleteuser(" + item.id + ")'>Eliminar</button></th>" + "</tr>");
             }
         },
         error: function(xhr, ajaxOptions, thrownError) {
@@ -170,8 +172,11 @@ function listUsers() {
     });
 }
 
-function deleteUser(id) {
-    var target = document.getElementById('listUsers');
+function showDeleteuser(id){
+    notyButtonsDeleteUser('error', 'topCenter', id);
+}
+
+function deleteUser(id) {    var target = document.getElementById('listUsers');
     var spinner = new Spinner(opts).spin(target);
     $.ajax({
         type: "GET",
@@ -203,6 +208,11 @@ function cleanDD() {
             generate('error', 'Lo siento no fue posible limpiar tu servidor');
         }
     });
+}
+
+function showDeleteTask(id){
+    notyButtonsDeleteTask('error', 'topCenter', id);
+
 }
 
 function deleteTask(id) {
@@ -244,6 +254,7 @@ function getTaskDetailsById(id) {
                 };
 
                 model.append("<form method='POST' id='updateTask' action='" + base_url + "updateTask/" + item.id + "'  accept-charset='UTF-8' role='form' enctype='multipart/form-data' class='fluid'>" +
+                    "<input name='admin_id' type='hidden' value='" + item.admin_id + "'>"+
                     "<label for='Folio'>Folio</label>" +
                     "<input id='folio' class='form-control' placeholder='Folio' autofocus='' name='folio' type='text' value='" + item.folio + "'>" +
                     "<br>" +
@@ -323,7 +334,7 @@ function getTaskDetailsByIdOperative(id) {
                 };
 
                 model.append("<form method='POST' id='updateTask' action='" + base_url + "updateTask/" + item.id + "'  accept-charset='UTF-8' role='form' enctype='multipart/form-data' class='fluid'>" +
-                    
+                    "<input name='admin_id' type='hidden' value='" + item.admin_id + "'>"+
                     "<input name='folio' type='hidden' value='" + item.folio + "'>"+
                     "<input name='oficio_referencia' type='hidden' value='" + item.oficio_referencia + "'>"+
                     "<input name='asunto' type='hidden' value='" + item.asunto + "'>"+
@@ -361,6 +372,7 @@ function getTaskDetailsByIdOperative(id) {
                     "</select>" +
                     "<br>" +
                     "<br>" +
+                    "<input id='filePdf' name='filePdf' type='file'>"+
                     "<p class='center'>" +
                     "<input type='submit' value='Actualizar' class='btn btn-success'>" +
                     "</p>" +
@@ -379,32 +391,35 @@ function showRejectTask(id){
 
      var model = $('#showRejectTask');
             model.empty();
-            model.append("<form method='POST' id='updateTask' action='" + base_url + "sendRejectTask/" + id + "'  accept-charset='UTF-8' role='form' enctype='multipart/form-data' class='fluid'>" +
-                
+            model.append("<form method='POST' id='sendRejectTask' action='" + base_url + "sendRejectTask/" + id + "'  accept-charset='UTF-8' role='form' enctype='multipart/form-data' class='fluid'>" +
                 "</br><span>Lo sentimos quizás esta mal asignada esta tarea. Escribe tus comentarios por favor.</span>"+
-                "<textarea id='comentariosRechazarTarea' class='form-control fluid' placeholder='Comentarios... ' name='comentarios'></textarea>"+
-               
+                "<textarea id='comentariosRechazarTarea' class='form-control fluid' placeholder='Comentarios... ' name='comentarios'></textarea>"+      
                 "</form>"+
                 "<div class='center'><button type='button' class='btn btn-success' onclick='sendRejectTask("+id+");'>Rechazar esta tarea</button></div>");
-
 }
 
 function sendRejectTask(id){
+    var target = document.getElementById('sendRejectTask');
+    var spinner = new Spinner(opts).spin(target);
     
     var comentarios = $('#comentariosRechazarTarea').val();
     var DATA = 'id='+id+'&comentarios='+comentarios;
     //alert(DATA)
-
-    
     $.ajax({
         url: base_url+'sendRejectTask',
         type: 'POST',
         data: DATA,
         contentType: 'application/x-www-form-urlencoded',
         success: function(data){
-            //alert(data)
-            generate('success', 'Tarea rechazada correctamente, espera la validación');
+            if (data.error) {
+                generate('error', 'Lo siento no es posible rechazar esta tarea');
+            } else{
+                generate('success', 'Tarea rechazada correctamente, espera la validación');
 
+            };
+            //alert(data)
+            spinner.stop();
+            
         },
         error: function( xhr, ajaxOptions, thrownError ){
             spinner.stop();

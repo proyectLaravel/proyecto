@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>INCAN Sistema de Control de Gestión de Planeación</title>
+  <title>INCAN Sistema de Control de Gestión</title>
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/normalize.css') }}"/>
   <link rel="stylesheet" href="{{ asset('bootstrap-3.2.0/css/bootstrap.min.css') }}">
   <link href="{{ asset('css/dash.css') }}" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/buttons.css') }}"/>
   <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.css') }}"/>
+  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   
 </head>
 <body>
@@ -88,7 +90,7 @@
 
         <div id="main" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar">
 
-          <h1 class="page-header">Historial de Tareas Asignadas</h1>
+          <h3 class="page-header">Historial de Tareas Asignadas</h3>
 
           @if (Auth::user()->hasRole('super_admin'))
             <table class="table table-hover">
@@ -167,7 +169,7 @@
           <div class="fluid">
            
             {{ Form::open(['route' => 'asignarTarea', 'method' => 'POST', 'role' => 'form','files' => true]) }}
-              {{ Form::hidden('id', Auth::user()->id ) }}
+              {{ Form::hidden('admin_id', Auth::user()->id ) }}
               {{ Form::hidden('estatus', 'enproceso' ) }}
               </br>
               {{ Form::label('Folio', 'Folio')}}
@@ -221,21 +223,20 @@
            
             {{ Form::open(['route' => 'register', 'method' => 'POST', 'role' => 'form']) }}
 
-            {{ Form::label('first_name', 'FirtsName', ['class' => 'sr-only']) }}
+            
+            {{ Form::label('Nombre', 'Nombre')}}
             {{ Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => 'Nombre', 'autofocus' => '']) }}
 
-
-            {{ Form::label('last_name', 'Last Name', ['class' => 'sr-only']) }}
+            {{ Form::label('Apellidos', 'Apellidos')}}
             {{ Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => 'Apellidos', 'autofocus' => '']) }}
 
-
-            {{ Form::label('username', 'Username', ['class' => 'sr-only']) }}
+            {{ Form::label('Username', 'Username')}}
             {{ Form::text('username', null, ['class' => 'form-control', 'placeholder' => 'Username', 'autofocus' => '']) }}
 
+            {{ Form::label('Email', 'Email')}}
             {{Form::text('email', null,['class' => 'form-control', 'placeholder' => 'Email', 'autofocus' => ''])}}
-            
 
-            {{ Form::label('password', 'Password', ['class' => 'sr-only']) }}
+            {{ Form::label('password', 'password')}}
             {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Contraseña']) }}
 
             <div class="checkbox">
@@ -243,7 +244,7 @@
                 {{ Form::checkbox('role', '1') }} Es administrador
             </div>
 
-            <p>
+            <p class="center">
               <input type="submit" value="Registrar" class="btn btn-success">
             </p>
             {{ Form::close() }}

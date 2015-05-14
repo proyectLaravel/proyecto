@@ -2,42 +2,53 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Authenticate with Laravel 4.2</title>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <title>Sistema de Control de Gestión</title>  
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/normalize.css') }}"/>
+  <link rel="stylesheet" href="{{ asset('bootstrap-3.2.0/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/utils.css') }}">
+  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   {{ HTML::style('assets/css/signin.css') }}
 </head>
 <body>
-  <div class="container">
-    <div class="gluid">
+  <div class="col-md-3"></div>
+  <div class="container center col-md-6" style="background-image:url({{asset('img/incan.jpg')}})">
+    <div class="fluid center">
       {{ Form::open(['url' => 'login', 'autocomplete' => 'off', 'class' => 'form-signin', 'role' => 'form']) }}
-
-      @if(Session::has('error_message'))
-      <div class="alert alert-danger">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-        {{ Session::get('error_message') }}
-      </div>
-      @endif
 
       <h2 class="form-signin-heading center">Sistema de Control de Gestión</h2>
 
       {{ Form::label('username', 'Username', ['class' => 'sr-only']) }}
       {{ Form::text('username', null, ['class' => 'form-control', 'placeholder' => 'Username', 'autofocus' => '']) }}
-
+      </br>
       {{ Form::label('password', 'Password', ['class' => 'sr-only']) }}
       {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Contraseña']) }}
-
+      </br>
+      </br>
       <div class="checkbox">
         <label>
           {{ Form::checkbox('remember', true) }} Recuerdame
         </label>
       </div>
-
-      {{ Form::submit('Iniciar Sesión', ['class' => 'btn btn-primary btn-block']) }}
+      <p class="center">
+      {{ Form::submit('Iniciar Sesión', ['class' => 'btn btn-primary ']) }}
+      </p>
 
       {{ Form::close() }}
       <!--<a class="btn btn-success" href="{{ action('AuthController@registerUser') }}">Create User</a>-->
-      <a class="btn btn-success" href="{{ action('UserController@showPassRecovery') }}">Olvide mi contraseña</a>
+      <a class="btn btn-success center" href="{{ action('UserController@showPassRecovery') }}">Olvide mi contraseña</a>
+      @if(Session::has('error_message'))
+        <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          {{ Session::get('error_message') }}
+      @endif
+      </div>
+      </br>
+      </br>
+      </br>
+      </br>
+      </br>
     </div>
+    <div class="col-md-3"></div>
   </div>
   <script src="//code.jquery.com/jquery.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
