@@ -8,7 +8,6 @@ class TareasController extends BaseController {
     if (!file_exists($path)) {
             File::makeDirectory($path, $mode = 0777, true, true);
     }
-    try {
       if (Input::hasFile('filePdf'))
       {
           $file = Input::file('filePdf')->move($path, time() . '-' . Input::file('filePdf')->getClientOriginalName() ); 
@@ -55,11 +54,6 @@ class TareasController extends BaseController {
           return Redirect::back();
       }
       
-    } catch (Exception $e) {
-      return Response::json(array(
-          'error' =>  $e
-        ));
-    }
   }
 
   public function getTasksSuperAdmin()
@@ -204,6 +198,32 @@ class TareasController extends BaseController {
           'error' =>  $e
         ));
     }
+  }
+
+  public function search(){
+
+    $search = Input::get('search');
+    $searchTerms = explode(' ', $search);
+    $query = DB::table('tareas');
+
+    foreach($searchTerms as $term)
+    {
+        $query->where('folio', 'LIKE', '%'. $term .'%');
+        $query->orwhere('asunto', 'LIKE', '%'. $term .'%');
+        $query->orwhere('oficio_referencia', 'LIKE', '%'. $term .'%');
+        $query->orwhere('fecha_recepcion', 'LIKE', '%'. $term .'%');
+        $query->orwhere('fecha_respuesta', 'LIKE', '%'. $term .'%');
+        $query->orwhere('area_generadora', 'LIKE', '%'. $term .'%');
+        $query->orwhere('nombre_titular', 'LIKE', '%'. $term .'%');
+        $query->orwhere('ubicacion_topografica', 'LIKE', '%'. $term .'%');
+        $query->orwhere('estatus', 'LIKE', '%'. $term .'%');
+
+    }
+
+    $results = $query->get();
+    return Response::json(array(
+          'busqueda' =>  $results
+        ));
   }
 
 }

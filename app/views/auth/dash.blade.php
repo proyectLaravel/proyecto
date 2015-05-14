@@ -10,6 +10,7 @@
   <link href="{{ asset('css/dash.css') }}" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/buttons.css') }}"/>
   <link rel="stylesheet" type="text/css" href="{{ asset('css/animate.css') }}"/>
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/utils.css') }}"/>
   <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   
 </head>
@@ -24,7 +25,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Sistema de Control de Gestión de Planeación</a>
+          <a class="navbar-brand" href="#">Sistema de Control de Gestión</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -54,9 +55,7 @@
               <li><a href="{{ action('AuthController@logout') }}">Cerrar Sesión</a></li>
             @endif
           </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Buscar...">
-          </form>
+            
         </div>
       </div>
     </nav>
@@ -89,9 +88,19 @@
         </div>
 
         <div id="main" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar">
+          <div class="container-fluid">
 
-          <h3 class="page-header">Historial de Tareas Asignadas</h3>
+            <h3 class="page-header page-header col-md-8">Historial de Tareas Asignadas</h3>
 
+            <div class="col-md-4 container-fluid top">
+              {{ Form::open(['route' => 'search', 'method' => 'GET', 'files' => true,'role' => 'form', 'class' => 'col-md-7']) }}
+                {{ Form::text('search', '' , ['id' => 'search', 'class' => 'form-control', 'placeholder' => 'Buscar']) }}
+              {{ Form::close() }}
+              <p class="col-md-5">
+                <input type="button" value="Buscar " class="btn btn-success" onclick="search();">
+              </p>
+            </div>
+          </div>
           @if (Auth::user()->hasRole('super_admin'))
             <table class="table table-hover">
               <thead>

@@ -428,6 +428,62 @@ function sendRejectTask(id){
     });
 }
 
+function search () {
+    var target = document.getElementById('main');
+    var spinner = new Spinner(opts).spin(target);
+    var search = $('#search').val();
+    var DATA = 'search='+search;
+    //alert(DATA)
+    $.ajax({
+        url: base_url+'search',
+        type: 'GET',
+        data: DATA,
+        contentType: 'application/x-www-form-urlencoded',
+        success: function(data){
+            console.debug(data)
+            if (data.error) {
+                generate('error', 'Lo siento no es posible realizar esta busqueda');
+            } else{
+                generate('success', 'busqueda exitosa');
+                drawSearch(data);
+
+            };
+            //alert(data)
+            spinner.stop();
+            
+        },
+        error: function( xhr, ajaxOptions, thrownError ){
+            spinner.stop();
+            generate('error', 'Lo siento no es posible realizar esta busqueda');
+        }
+    });
+}
+
+function drawSearch(data){
+    d = new Date();
+    var model = $('#tasksSuperAdmin');
+    model.empty();
+    for (var i in data.busqueda) {
+        var item = data.busqueda[i];
+        var fechar = item.fecha_respuesta;
+        //alert( $.format.parseDate(fechar, 'dd/MM/yyyy'))
+        if (item.fecha_respuesta == d.format('Y\\-m\\-d 00\\:00\\:00')) {
+            var semaforo = "<th class='center'><button type='button' class='btn btn-danger' style='border-radius:45%;'></button></th>";
+        } else {
+            var semaforo = "<th class='center'><button type='button' class='btn btn-success' style='border-radius:45%;'></button></th>";
+        };
+        model.append("<tr><th class='center'>" + item.folio + "</th>" +
+            "<th class='center'>" + item.oficio_referencia + "</th>" +
+            "<th class='center'>" + item.asunto + "</th>" +
+            "<th class='center'>" + item.first_name + "</th>" +
+            //"<th class='center shortDateFormat'>" + item.fecha_respuesta + "</th>" +
+            //"<th class='center'>" + item.estatus +
+            semaforo +
+            "<th class='center'><button type='button' class='btn btn-info' onclick='getTaskDetailsById(" + item.id + ")'>Ver Detalles</button></th>" +
+            "<th class='center'><button type='button' class='btn btn-danger' onclick='showDeleteTask(" + item.id + ")'>Eliminar</button></th> </tr>");
+    }
+}
+
 /*libraries*/
 
 jQuery(function() {
