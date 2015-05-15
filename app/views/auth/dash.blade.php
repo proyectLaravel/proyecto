@@ -50,7 +50,7 @@
               <div>
             </li>-->
             @if(Auth::check())
-              <li><a href="#">{{ Auth::user()->username }}</a></li>
+              <li><a href="#">{{ Auth::user()->first_name }}</a></li>
               <li><a href="#" onclick="showView('updateUser','ocultar')">Perfil</a></li>
               <li><a href="{{ action('AuthController@logout') }}">Cerrar Sesión</a></li>
             @endif
@@ -115,7 +115,7 @@
                   
                 </tr>
               </thead>
-              <tbody id="tasksSuperAdmin">
+              <tbody id="tasksSuperAdmin" style="font-size:12px;">
                 
               </tbody>
             </table>
@@ -134,7 +134,7 @@
                   
                 </tr>
               </thead>
-              <tbody id="tasks">
+              <tbody id="tasks" style="font-size:12px;">
                 
               </tbody>
             </table>
@@ -142,7 +142,9 @@
         </div>
 
         <section id="updateUser" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
-          <div class="col-md-4 col-md-offset-4">
+          <div class="container-fluid center">
+            </br>
+            </br>
             <img class="img-circle" src="{{asset(Auth::user()->avatar->url('thumb')) }}" >
 
             {{ Form::open(['route' => 'uploadImage', 'method' => 'POST', 'files' => true,'role' => 'form']) }}
@@ -150,6 +152,8 @@
               {{ Form::file('avatar') }}
               <input type="submit" value="Subir imagen" class="btn btn-success">
             {{ Form::close() }}
+
+            </br>
 
             {{ Form::open(['route' => 'updateUser', 'method' => 'POST', 'role' => 'form']) }}
 
