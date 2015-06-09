@@ -77,9 +77,9 @@
             <li id="liListarUsuarios" class="lis">
               <a href="#" onclick="showView('listarUsuarios','ocultar');addClassActive('liListarUsuarios','lis')">Listar Usuarios</a>
             </li>
-            <li id="liLimpiarEspacio" class="lis">
+            <!--<li id="liLimpiarEspacio" class="lis">
               <a href="#" onclick="showView('limpiarEspacio','ocultar');addClassActive('liLimpiarEspacio','lis')">Limpiar DD</a>
-            </li>
+            </li>-->
             @endif
             <!--<li><a href="#">favorites</a></li>
             <li><a href="#">Recommended</a></li>-->
@@ -180,7 +180,19 @@
 
       <section id="asignarTarea" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
           <div class="fluid">
-           
+            
+            @if ($errors->any())
+              <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Por favor corrige los siguentes errores:</strong>
+                <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+                </ul>
+              </div>
+            @endif
+            
             {{ Form::open(['route' => 'asignarTarea', 'method' => 'POST', 'role' => 'form','files' => true]) }}
               {{ Form::hidden('admin_id', Auth::user()->id ) }}
               {{ Form::hidden('estatus', 'enproceso' ) }}
@@ -233,6 +245,17 @@
       <!--Vista que te permite crear un usuario-->
       <section id="registrarUsuario" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
           <div class="fluid">
+            @if ($errors->any())
+              <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Por favor corrige los siguentes errores:</strong>
+                <ul>
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+                </ul>
+              </div>
+            @endif
            
             {{ Form::open(['route' => 'register', 'method' => 'POST', 'role' => 'form']) }}
 
@@ -288,12 +311,12 @@
       </section>
 
       <!--Limpiar Espacio en Disco Duro-->
-      <section id="limpiarEspacio" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
+      <!--<section id="limpiarEspacio" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >
           <div class="col-md-4 col-md-offset-4">
             
             <div onclick="cleanDD()">Limpiar</div>
         </div>
-      </section>
+      </section>-->
 
       <!--Ver detalle tarea-->
       <section id="verDetalleTarea" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 ocultar spin" style="display:none" >

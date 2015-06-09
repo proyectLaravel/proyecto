@@ -7,28 +7,56 @@ class UserController extends BaseController {
      
     $data = Input::only(['first_name', 'last_name', 'username', 'email', 'password']);
 
-    $newUser = User::create($data);
+    $rules = array(
+      'first_name'  => 'required',
+      'last_name'   => 'required',
+      'username'    => 'required|unique:users',
+      'email'       => 'required|unique:users',
+      'password'    => 'required'
+    );
+  
+    $messages = array(
+      'first_name.required'  => 'El Nombre es obligatorio',
+      'last_name.required'   => 'Los Apellidos son obligatorios.',
+      'username.required'    => 'El Username esobligatorio.',
+      'email.required'       => 'El Email es obligatorio.',
+      'password.required'    => 'La Contraseña es obligatoria.',
+      'username.unique'      => 'Ya existe este Username, por favor elige otro.',
+      'email.unique'         => 'Ya existe este Email, por favor elige otro.'
+    );
+   
+    $validation = Validator::make($data, $rules, $messages);
+   
+    if ($validation->fails())
+    {
+        //var_dump('error');
+        return Redirect::to('dash')->withErrors($validation);
+ 
+    }else{
+      
+      $newUser = User::create($data);
 
-    $role = Input::get('role');
+      $role = Input::get('role');
 
-    if ($role == 1 ) {
-      $newUser->makeRole('super_admin');
+      if ($role == 1 ) {
+        $newUser->makeRole('super_admin');
+      }
+      else {
+       $newUser->makeRole('admin'); 
+      }
+
+      Mail::send('emails.welcome', array('first_name'=>Input::get('first_name')), function($message){
+        $message->to(Input::get('email'), Input::get('first_name').' '.Input::get('last_name'))->subject('Welcome to AuthLaravelSimple');
+      });
+
+      if($newUser){
+        //Auth::login($newUser);
+        return Redirect::to('dash');
+      }
+
+      return Redirect::route('showRegister')->withInput();
+
     }
-    else {
-     $newUser->makeRole('admin'); 
-    }
-
-    Mail::send('emails.welcome', array('first_name'=>Input::get('first_name')), function($message){
-      $message->to(Input::get('email'), Input::get('first_name').' '.Input::get('last_name'))->subject('Welcome to AuthLaravelSimple');
-    });
-
-    if($newUser){
-      //Auth::login($newUser);
-      return Redirect::to('dash');
-    }
-
-    return Redirect::route('showRegister')->withInput();
-
   }
 
   public function account()

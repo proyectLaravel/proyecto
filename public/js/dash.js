@@ -298,6 +298,8 @@ function getTaskDetailsById(id) {
                     "<option>Atendido</option>" +
                     "<option>Finalizado</option>" +
                     "</select>" +
+                    "<a href='"+base_url+item.directoryFile+"' download>Documento Asignado</a>"+
+                    "<a href='"+base_url+item.directoryResponseFile+"' download>Documento Respuesta</a>"+
                     "<br>" +
                     "<br>" +
                     "<p class='center'>" +
@@ -370,6 +372,8 @@ function getTaskDetailsByIdOperative(id) {
                     "<option>Atendido</option>" +
                     "<option>Finalizado</option>" +
                     "</select>" +
+                    "<a href='"+base_url+item.directoryFile+"' download>Documento Asignado</a>"+
+                    "<a href='"+base_url+item.directoryResponseFile+"' download>Documento Respuesta</a>"+
                     "<br>" +
                     "<br>" +
                     "<input id='filePdf' name='filePdf' type='file'>"+
