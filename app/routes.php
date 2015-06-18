@@ -1,5 +1,11 @@
 <?php
 
+/*define response for route not exist*/
+App::missing(function($exception)
+{
+    return Response::view('missing', array(), 404);
+});
+/*define response for route not exist*/
 
 
 /*Controls of auth*/
@@ -23,6 +29,7 @@ Route::post('password/reset/{token}', ['as' => 'resetPass', 'uses' => 'UserContr
 Route::group(['before' => 'auth'], function()
 {
 	Route::get('/', 'HomeController@showWelcome');
+	
 
 	Route::get('dash', 'AuthController@showWelcome');
 
