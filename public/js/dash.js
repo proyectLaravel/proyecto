@@ -5,7 +5,7 @@ function showView(id,clases){
 }
 
 function addClassActive(id) {
-	console.debug('este es el id '+ad);
+	console.debug('este es el id '+id);
     $('.nav-sidebar > li').removeClass('active');
     $('.nav-sidebar > li#' + id).addClass('active');
 }
