@@ -30,7 +30,7 @@ class CreateTasksTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('tasks')
+		Schema::drop('tasks');
 	}
 
 }
