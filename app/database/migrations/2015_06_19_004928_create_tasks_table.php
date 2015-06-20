@@ -18,7 +18,6 @@ class CreateTasksTable extends Migration {
 			$table->integer('folio')->unique();
 			$table->string('oficioReferencia');
 			$table->string('descripcion');
-			$table->rememberToken();
 			$table->timestamps();
 		});
 	}
