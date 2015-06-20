@@ -10,14 +10,14 @@ class TaskController extends BaseController {
   	$rules = array(
         'folio'             => 'numeric|required|unique:tasks',
         'oficioReferencia'  => 'required',
-        'descripcion'       => 'string|required',
+        'descripcion'       => 'string|required'
     );
   
     $messages = array(
       'folio.unique'                => 'Folio duplicado.',
       'folio.required'              => 'El folio es obligatorio.',
       'oficioReferencia.required'   => 'El Oficio Referencia es obligatorio.',
-      'descripcion.required'        => 'La descripcion es obligatoria.',
+      'descripcion.required'        => 'La descripcion es obligatoria.'
     );
    
     $validation = Validator::make($data, $rules, $messages);
@@ -34,4 +34,23 @@ class TaskController extends BaseController {
     }
 
  }
+
+
+   public function seachTasj() {
+
+   	$search = Input::get('search');
+    $searchTerms = explode(' ', $search);
+    $query = DB::table('tasks');
+    foreach($searchTerms as $term)
+    {
+        $query->where('folio', 'LIKE', '%'. $term .'%');
+        $query->orwhere('descripcion', 'LIKE', '%'. $term .'%');
+        $query->orwhere('oficioReferencia', 'LIKE', '%'. $term .'%');
+    }
+    $results = $query->get();
+    return Response::json(array(
+          'busqueda' =>  $results
+        ));
+
+   }
 }
